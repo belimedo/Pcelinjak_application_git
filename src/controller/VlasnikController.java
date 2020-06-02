@@ -77,6 +77,10 @@ public class VlasnikController extends Application {
 	@FXML
 	private Stage thisStage;
 	
+	public VlasnikController() {
+		
+	}
+	
 	public VlasnikController(int IdVlasnika) {
 		this.IdVlasnika = IdVlasnika;
 	}
@@ -85,7 +89,7 @@ public class VlasnikController extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/vlasnik.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VlasnikForm.fxml"));
 		loader.setController(this);
 		Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -149,7 +153,7 @@ public class VlasnikController extends Application {
 	}
 	
 	@FXML
-	public void upravljajPcelinjakom() {
+	public void detaljiPcelinjak() {
 		
 
 		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();

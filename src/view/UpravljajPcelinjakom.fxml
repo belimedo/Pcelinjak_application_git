@@ -64,19 +64,31 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="137.0" prefWidth="707.0" spacing="20.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="123.0" prefWidth="187.0" spacing="20.0">
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="221.0">
                            <children>
-                              <Button fx:id="buttonDodajPcelinjak" mnemonicParsing="false" onAction="#addPcelinjak" text="Dodaj pčelinjak" />
-                              <Button fx:id="buttonIzbrisiPcelinjak" mnemonicParsing="false" onAction="#deletePcelinjak" text="Izbriši pčelinjak" />
-                              <Button fx:id="buttonPovratakNazad" contentDisplay="CENTER" mnemonicParsing="false" text="Povratak Nazad">
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonPromijeniAdresu" mnemonicParsing="false" text="Promijeni adresu">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <TextField fx:id="textfieldAdresa" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="118.0" promptText="Unesi novu adresu">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button fx:id="buttonPovratakNazad" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Povratak Nazad">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                               </Button>
                            </children>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
                         </VBox>
                         <VBox prefHeight="128.0" prefWidth="221.0">
                            <children>

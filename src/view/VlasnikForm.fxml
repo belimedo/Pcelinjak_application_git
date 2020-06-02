@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="798.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label fx:id="labelVlasnik" text="Pčelinjak - Naziv - Vlasnik" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -59,10 +59,12 @@
             </TableView>
             <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="770.0" spacing="20.0">
                <children>
-                  <Button fx:id="buttonDetalji" mnemonicParsing="false" text="Detalji o pčelinjaku" />
-                  <Button fx:id="buttonDrustva" mnemonicParsing="false" text="Prikaži sva društva" />
-                  <Button fx:id="buttonZaposleni" mnemonicParsing="false" text="Prikaži sve zaposlene" />
-                  <Button fx:id="buttonTransakcije" mnemonicParsing="false" text="Prikaži sve transakcije" />
+                  <Button fx:id="buttonDetaljiOPcelinjaku" mnemonicParsing="false" onAction="#detaljiPcelinjak" text="Detalji o pčelinjaku" />
+                  <Button fx:id="buttonDodajPcelinjak" mnemonicParsing="false" onAction="#addPcelinjak" text="Dodaj pčelinjak" />
+                  <Button fx:id="buttonIzbrisiPcelinjak" mnemonicParsing="false" onAction="#deletePcelinjak" text="Izbriši pčelinjak" />
+                  <Button fx:id="buttonPrikaziDrustva" mnemonicParsing="false" text="Prikaži društva" />
+                  <Button fx:id="buttonPrikaziZaposlene" mnemonicParsing="false" text="Prikaži zaposlene" />
+                  <Button fx:id="buttonPrikaziTransakcije" mnemonicParsing="false" text="Prikaži transakcije" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
