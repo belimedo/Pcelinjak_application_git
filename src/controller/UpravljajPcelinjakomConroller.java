@@ -150,10 +150,12 @@ public class UpravljajPcelinjakomConroller extends Application {
 			}
 			catch (NumberFormatException ex) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj vrcalica mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojVrcalica.setText("");
 				return;
 			}
 			if (number <= 0) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj vrcalica mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojVrcalica.setText("");
 				return;
 			}
 			else {
@@ -180,16 +182,19 @@ public class UpravljajPcelinjakomConroller extends Application {
 			}
 			catch (NumberFormatException ex) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj vrcalica mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojVrcalica.setText("");
 				return;
 			}
 			if (number <= 0) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj vrcalica mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojVrcalica.setText("");
 				return;
 			}
 			else {
 				int tmp = new PcelinjakDao().removeVrcalica(number,IdPcelinjaka);
 				if (tmp == 0) {
 					PopUpWindow.showMessage("Greška!","Neispravan unos","Broj vrcalica koje se brisu ne moze biti veci od broja trenutnih vrcalica.");
+					textfieldBrojVrcalica.setText("");
 					return;
 				}
 				else {
@@ -216,10 +221,12 @@ public class UpravljajPcelinjakomConroller extends Application {
 			}
 			catch (NumberFormatException ex) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj tegli mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojTegli.setText("");
 				return;
 			}
 			if (number <= 0) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj tegli mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojTegli.setText("");
 				return;
 			}
 			else {
@@ -246,16 +253,19 @@ public class UpravljajPcelinjakomConroller extends Application {
 			}
 			catch (NumberFormatException ex) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj tegli mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojTegli.setText("");
 				return;
 			}
 			if (number <= 0) {
 				PopUpWindow.showMessage("Greška!","Neispravan unos","Broj tegli mora biti pozitivan cjelobrojan broj.");
+				textfieldBrojTegli.setText("");
 				return;
 			}
 			else {
 				int tmp = new PcelinjakDao().removeTegleZaAmbalazu(number,IdPcelinjaka);
 				if (tmp == 0) {
 					PopUpWindow.showMessage("Greška!","Neispravan unos","Broj tegli koje se brisu ne moze biti veci od broja trenutnih vrcalica.");
+					textfieldBrojTegli.setText("");
 					return;
 				}
 				else {

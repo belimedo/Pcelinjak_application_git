@@ -31,10 +31,10 @@ public class DodajPcelinjakController extends Application {
 	private TextField textfieldBrojDrustava;
 	@FXML
 	private TextField textfieldBrojVrcalica;
-	@FXML
-	private TextField textfieldBrojSanduka;
-	@FXML
-	private TextField textfieldBojaSanduka;
+//	@FXML
+//	private TextField textfieldBrojSanduka; implicitno je 2 a boja je bijela implicitno
+//	@FXML
+//	private TextField textfieldBojaSanduka;
 	@FXML
 	private TextField textfieldBrojTegli;
 	@FXML
@@ -80,6 +80,8 @@ public class DodajPcelinjakController extends Application {
 		String errorMessage = "";
 		String vlasnik; // dobiti Id nekako od ovoga
 		
+		String boja = "bijela";
+		
 		int brojVrcalica 	= -1; // Postavljeno kao default vrijednost zbog try-catcha
 		int brojZaposlenih 	= -1;
 		int brojDrustava 	= -1;
@@ -109,19 +111,6 @@ public class DodajPcelinjakController extends Application {
 		else {
 
 			textfieldAdresaPcelinjaka.setStyle("");
-		}
-		
-		String boja = textfieldBojaSanduka.getText();
-		
-		if (naziv == null || naziv.length() == 0) {
-			
-			errorMessage += "Unesite ponovo vrijednost Boja Sanduka\n";
-			textfieldBojaSanduka.setStyle("-fx-background-color: red");
-			textfieldBojaSanduka.setText("");
-		}
-		else {
-
-			textfieldBojaSanduka.setStyle("");
 		}
 		
 		try {
