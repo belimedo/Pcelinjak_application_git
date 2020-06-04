@@ -90,7 +90,7 @@ public class DodajPcelinjakController extends Application {
 		if (naziv == null || naziv.length() == 0) {
 			
 			errorMessage +="Unesite ponovo vrijednost Naziv pčelinjaka\n";
-			textfieldNazivPcelinjaka.setStyle("-fx-background-color: red");
+			textfieldNazivPcelinjaka.setStyle("-fx-border-color: red");
 			textfieldNazivPcelinjaka.setText("");
 		}
 		else {
@@ -103,7 +103,7 @@ public class DodajPcelinjakController extends Application {
 		if (naziv == null || naziv.length() == 0) {
 			
 			errorMessage += "Unesite ponovo vrijednost Adresa pčelinjaka\n";
-			textfieldAdresaPcelinjaka.setStyle("-fx-background-color: red");
+			textfieldAdresaPcelinjaka.setStyle("-fx-border-color: red");
 			textfieldAdresaPcelinjaka.setText("");
 		}
 		else {
@@ -117,12 +117,12 @@ public class DodajPcelinjakController extends Application {
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Broj Vrcalica. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojVrcalica.setStyle("-fx-background-color: red");
+			textfieldBrojVrcalica.setStyle("-fx-border-color: red");
 			textfieldBrojVrcalica.setText("");
 		}
 		if (brojVrcalica < 0 || textfieldBrojVrcalica.getText().length() == 0) {
 			errorMessage += "Unesite ponovo vrijednost Broj Vrcalica. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojVrcalica.setStyle("-fx-background-color: red");
+			textfieldBrojVrcalica.setStyle("-fx-border-color: red");
 			textfieldBrojVrcalica.setText("");
 		}
 		else {
@@ -135,12 +135,12 @@ public class DodajPcelinjakController extends Application {
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Broj Zaposlenih. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojZaposlenih.setStyle("-fx-background-color: red");
+			textfieldBrojZaposlenih.setStyle("-fx-border-color: red");
 			textfieldBrojZaposlenih.setText("");
 		}
 		if (brojZaposlenih < 0 || textfieldBrojZaposlenih.getText().length() == 0) {
 			errorMessage += "Unesite ponovo vrijednost Broj Zaposlenih. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojZaposlenih.setStyle("-fx-background-color: red");
+			textfieldBrojZaposlenih.setStyle("-fx-border-color: red");
 			textfieldBrojZaposlenih.setText("");
 		}
 		else {
@@ -153,12 +153,12 @@ public class DodajPcelinjakController extends Application {
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Broj Tegli. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojTegli.setStyle("-fx-background-color: red");
+			textfieldBrojTegli.setStyle("-fx-border-color: red");
 			textfieldBrojTegli.setText("");
 		}
 		if (brojTegli < 0 || textfieldBrojTegli.getText().length() == 0) {
 			errorMessage += "Unesite ponovo vrijednost Broj Tegli. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojTegli.setStyle("-fx-background-color: red");
+			textfieldBrojTegli.setStyle("-fx-border-color: red");
 			textfieldBrojTegli.setText("");
 		}
 		else {
@@ -171,12 +171,12 @@ public class DodajPcelinjakController extends Application {
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Broj Društava. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojDrustava.setStyle("-fx-background-color: red");
+			textfieldBrojDrustava.setStyle("-fx-border-color: red");
 			textfieldBrojDrustava.setText("");
 		}
 		if (brojDrustava < 0 || textfieldBrojDrustava.getText().length() == 0) {
 			errorMessage += "Unesite ponovo vrijednost Broj Društava. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
-			textfieldBrojDrustava.setStyle("-fx-background-color: red");
+			textfieldBrojDrustava.setStyle("-fx-border-color: red");
 			textfieldBrojDrustava.setText("");
 		}
 		else {
@@ -189,7 +189,9 @@ public class DodajPcelinjakController extends Application {
 		else {
 			// TODO: skontati kako dodati IdVlasnika, vjerovatno preko konstruktora
 			new PcelinjakDao().addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
-			System.out.println("GOTOVO!");
+			PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
+			callerController.initializeScene();
+			thisStage.close();
 //			int i = 0;
 //			int result;
 //			while (i < brojZaposlenih) {
