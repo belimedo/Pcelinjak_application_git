@@ -80,8 +80,6 @@ public class DodajPcelinjakController extends Application {
 		String errorMessage = "";
 		String vlasnik; // dobiti Id nekako od ovoga
 		
-		String boja = "bijela";
-		
 		int brojVrcalica 	= -1; // Postavljeno kao default vrijednost zbog try-catcha
 		int brojZaposlenih 	= -1;
 		int brojDrustava 	= -1;
@@ -190,7 +188,7 @@ public class DodajPcelinjakController extends Application {
 		}
 		else {
 			// TODO: skontati kako dodati IdVlasnika, vjerovatno preko konstruktora
-			new PcelinjakDao().addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika(),boja);
+			new PcelinjakDao().addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
 			System.out.println("GOTOVO!");
 //			int i = 0;
 //			int result;

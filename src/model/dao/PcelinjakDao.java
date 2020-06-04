@@ -258,9 +258,10 @@ public class PcelinjakDao {
 	}
 	
 	public int addPcelinjak(String nazivPcelinjaka,String adresaPcelinjaka,int brojDrustava,int brojVrcalica, int brojTegliZaAmbalazu,
-			int brojZaposlenih,int IdVlasnika,String boja) {
+			int brojZaposlenih,int IdVlasnika) {
 		
 		// TODO: dobiti Id pcelinjaka ovdje preko LastID....
+		String boja = "bijela";
 		byte brojSanduka 	= 2;
 		byte proizveloRoj 	= 0;
 		byte velicinaLegla	= 4;
