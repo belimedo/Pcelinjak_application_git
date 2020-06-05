@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
+
+import model.dto.Drustvo;
 import model.dto.Pcelinjak;
 import util.ConnectionPool;
 
@@ -257,6 +259,17 @@ public class PcelinjakDao {
 		return 0;
 	}
 	
+	/**
+	 * Metoda koja dodaje novi pcelinjak u bazu podataka na osnovu 
+	 * @param nazivPcelinjaka
+	 * @param adresaPcelinjaka
+	 * @param brojDrustava
+	 * @param brojVrcalica
+	 * @param brojTegliZaAmbalazu
+	 * @param brojZaposlenih
+	 * @param IdVlasnika
+	 * @return
+	 */
 	public int addPcelinjak(String nazivPcelinjaka,String adresaPcelinjaka,int brojDrustava,int brojVrcalica, int brojTegliZaAmbalazu,
 			int brojZaposlenih,int IdVlasnika) {
 		
@@ -300,7 +313,20 @@ public class PcelinjakDao {
 		return 0;
 	}
 
-
+	public int deletePcelinjak(int IdPcelinjaka) {
+		
+		/**
+		 *  Kod brisanja pcelinjaka potrebno je pobrisati: 
+		 *  1. Sva drustva i sve sanduke +
+		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda
+		 *  3. Sve kupovine, tabele stavka_med, stavka_propolis, posjeduje_med i posjeduje_propolis
+		 */
+		
+		new DrustvoDao().deleteAllDrustvaFromPcelinjak(IdPcelinjaka);
+		
+		
+		return 0;
+	}
 
 
 }

@@ -65,7 +65,7 @@ where d.IdDruštva = new.DRUŠTVO_IdDruštva;
 $$
 DELIMITER ;
 
-#drop trigger dekrementuj_sanduk;
+drop trigger dekrementuj_sanduk;
 DELIMITER $$
 use pcelinjak_db $$
 # Triger za automatsko dekrementovanje broja društava u pčelinjaku
@@ -267,15 +267,11 @@ begin
 end$$
 DELIMITER ;
 
- select max(IdPčelinjaka) from pčelinjak;
-
-
-
-drop procedure dodaj_društvo;
+drop procedure dodaj_drustvo;
 DELIMITER $$
 use pcelinjak_db $$
 # Ova procedura unosi jedno društvo i određen broj sanduka koje to društvo ima.
-create procedure dodaj_društvo (in pBrojSanduka tinyint, in pProizveloRoj tinyint, in pVeličinaLegla tinyint, in pKoličinaMedaURezervi tinyint, in pRed int, in pPozicijaURedu int, pPČELINJAK_IdPčelinjaka int,in pGodinaKupovine year, in pBoja varchar(20),in pBrojRamova tinyint)
+create procedure dodaj_drustvo (in pBrojSanduka tinyint, in pProizveloRoj tinyint, in pVeličinaLegla tinyint, in pKoličinaMedaURezervi tinyint, in pRed int, in pPozicijaURedu int, pPČELINJAK_IdPčelinjaka int,in pGodinaKupovine year, in pBoja varchar(20),in pBrojRamova tinyint)
 begin
 	declare counter tinyint;
     set counter = 0;
@@ -286,6 +282,19 @@ begin
 		values(counter+1, pGodinaKupovine,pBoja,pBrojRamova,pIdDruštva);
         set counter = counter + 1;
 	end while;
+end$$
+DELIMITER ;
+
+# Ako se izbrise drustvo, za ocekivati je da radnik ostane da radi (npr ugine drustvo)
+# pa samim tim i tabele vrca, lijeci i pregleda trebaju ostati kao dokument rada radnika. Po brisanju pcelinjaka, radnik dobija otkaz, pa se brisu i ove tabele
+drop procedure izbrisi_drustvo;
+DELIMITER $$
+use pcelinjak_db $$
+# Ova procedura brise sve sanduke koje jedno drustvo ima, a zatim i samo drustvo
+create procedure izbrisi_drustvo (in pIdDrustva int)
+begin
+	delete from sanduk where `DRUŠTVO_IdDruštva` = pIdDrustva;
+    delete from društvo where `IdDruštva` = pIdDrustva;
 end$$
 DELIMITER ;
 
