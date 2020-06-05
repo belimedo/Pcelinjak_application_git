@@ -280,7 +280,7 @@ public class PcelinjakDao {
 		byte velicinaLegla	= 4;
 		byte kolicinaMeda	= 5;
 		byte brojRamova		= 10;
-		int godina			= 2020; //TODO: Ovo promijeniti
+		int godina			=  Calendar.getInstance().get(Calendar.YEAR); //TODO: Ovo promijeniti
 		
 		Connection connection = null;
 		PreparedStatement ps = null;
