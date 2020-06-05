@@ -318,7 +318,7 @@ public class PcelinjakDao {
 		/**
 		 *  Kod brisanja pcelinjaka potrebno je pobrisati: 
 		 *  1. Sva drustva i sve sanduke +
-		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda
+		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda, ovo odraditi preko fk zaposleni i fk drustvo, dobiti sve pa izbrisati sve ove! 
 		 *  3. Sve kupovine, tabele stavka_med, stavka_propolis, posjeduje_med i posjeduje_propolis
 		 */
 		

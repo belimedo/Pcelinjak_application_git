@@ -3,6 +3,7 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import model.dto.Zaposleni;
 import util.ConnectionPool;
@@ -33,6 +34,18 @@ private String getByUsernameQuery = "select * from Zaposleni where KorisničkoIm
 		finally {
 			ConnectionPool.getInstance().checkIn(connection);
 		}
+		return null;
+	}
+	
+	public int addZaposleni() {
+		return 0;
+	}
+	
+	public int deleteZaposleni() {
+		return 0;
+	}
+	
+	public List<Zaposleni> getAllByPcelinjakId(int IdPcelinjaka) {
 		return null;
 	}
 
