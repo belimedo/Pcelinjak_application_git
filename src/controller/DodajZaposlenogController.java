@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.dao.ZaposleniDao;
 import util.PopUpWindow;
@@ -58,12 +59,13 @@ public class DodajZaposlenogController extends Application {
         primaryStage.setTitle("Pcelinjak - Dodaj zaposlenog");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.setOnCloseRequest(e->{
             e.consume();    
             PopUpWindow.showMessage("Izlazak iz prozora", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");
             primaryStage.close();
         });
-        primaryStage.show();
+        primaryStage.showAndWait();
         thisStage = primaryStage;		
 		
 	}
@@ -106,7 +108,7 @@ public class DodajZaposlenogController extends Application {
 		}
 		else {
 			try {
-				Integer.parseInt(JMBG); // Samo za provjeru da li je svih 13 karaktera integer vrijednost
+				Long.parseLong(JMBG); // Samo za provjeru da li je svih 13 karaktera integer vrijednost
 			}
 			catch (NumberFormatException ex){
 				

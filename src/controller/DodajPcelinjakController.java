@@ -214,7 +214,9 @@ public class DodajPcelinjakController extends Application {
 		            }
 		        	}, 0);
 	        	}
+			
 		}
+		
 		PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
 		callerController.initializeScene();
 		thisStage.close();

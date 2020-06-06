@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,59 +15,41 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Naziv pčelinjaka" />
-                  <TextField fx:id="textFieldNazivPcelinjaka" />
+                  <Label prefWidth="95.0" text="Ime" />
+                  <TextField fx:id="textfieldIme" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Adresa pčelinjaka" />
-                  <TextField fx:id="textFieldAdresaPcelinjaka" />
+                  <Label prefWidth="95.0" text="Prezime" />
+                  <TextField fx:id="textfieldPrezime" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Broj društava" />
-                  <TextField fx:id="textfieldBrojDrustava" />
+                  <Label prefWidth="95.0" text="JMBG" />
+                  <TextField fx:id="textfieldJMBG" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Broj vrcalica" />
-                  <TextField fx:id="textfieldBrojVrcalica" />
+                  <Label prefWidth="95.0" text="Plata" />
+                  <TextField fx:id="textfieldPlata" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Broj sanduka" />
-                  <TextField fx:id="textfieldBrojSanduka" />
+                  <Label prefWidth="95.0" text="Korisničko ime" />
+                  <TextField fx:id="textfieldKorisnickoIme" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label prefWidth="95.0" text="Boja sanduka" />
-                  <TextField fx:id="textfieldBojaSanduka" />
+                  <Label prefWidth="95.0" text="Lozinka" />
+                  <PasswordField fx:id="passfieldLozinka" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Label prefWidth="95.0" text="Broj tegli" />
-                  <TextField fx:id="textfieldBrojTegli" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Label prefWidth="95.0" text="Broj zaposlenih" />
-                  <TextField fx:id="textfieldBrojZaposlenih" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Label prefWidth="95.0" text="Vlasnik" />
-                  <ChoiceBox fx:id="cbVlasnik" prefWidth="150.0" />
-               </children>
-            </HBox>
-            <Button fx:id="buttonAccept" mnemonicParsing="false" text="Potvrdi" />
+            <Button fx:id="buttonAccept" mnemonicParsing="false" onAction="#addZaposlenog" text="Potvrdi" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
