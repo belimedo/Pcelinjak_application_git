@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,8 @@ import util.ConnectionPool;
 
 public class ZaposleniDao {
 	
-private String getByUsernameQuery = "select * from Zaposleni where KorisničkoIme = ? and Lozinka = ?";
+private String getByUsernameQuery 	= "select * from Zaposleni where KorisničkoIme = ? and Lozinka = ?";
+private String addZaposleniQuery	= "insert into zaposleni (`Plata`,`KorisničkoIme`,`Lozinka`,`JMBG`,`Ime`,`Prezime`,`PČELINJAK_IdPčelinjaka`) value (?,?,?,?,?,?,?);";
 	
 	public Zaposleni getByUsername(String username, String pass) {
 		Connection connection = null;
@@ -37,7 +39,29 @@ private String getByUsernameQuery = "select * from Zaposleni where KorisničkoIm
 		return null;
 	}
 	
-	public int addZaposleni() {
+	public int addZaposleni(BigDecimal plata,String korisnickoIme,String lozinka, String JMBG, String ime, String prezime, int idPcelinjaka) {
+		
+		Connection connection = null;
+		PreparedStatement ps = null;
+		
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(addZaposleniQuery);
+			ps.setBigDecimal(1, plata);
+			ps.setString(2, korisnickoIme);
+			ps.setString(3, lozinka);
+			ps.setString(4, JMBG);
+			ps.setString(5, ime);
+			ps.setString(6, prezime);
+			ps.setInt(7, idPcelinjaka);
+			return ps.executeUpdate();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
 		return 0;
 	}
 	

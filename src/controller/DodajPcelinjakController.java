@@ -31,10 +31,6 @@ public class DodajPcelinjakController extends Application {
 	private TextField textfieldBrojDrustava;
 	@FXML
 	private TextField textfieldBrojVrcalica;
-//	@FXML
-//	private TextField textfieldBrojSanduka; implicitno je 2 a boja je bijela implicitno
-//	@FXML
-//	private TextField textfieldBojaSanduka;
 	@FXML
 	private TextField textfieldBrojTegli;
 	@FXML
@@ -44,7 +40,6 @@ public class DodajPcelinjakController extends Application {
 	@FXML
 	private Button buttonAccept;
 	
-	private boolean completedData;
 	private VlasnikController callerController;
 	
 	public DodajPcelinjakController(VlasnikController callerController) {
@@ -65,7 +60,7 @@ public class DodajPcelinjakController extends Application {
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(e->{
             e.consume();    
-            PopUpWindow.showMessage("Izlazak iz aplikacije", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");
+            PopUpWindow.showMessage("Izlazak iz prozora", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");
             primaryStage.close();
         });
         primaryStage.show();
@@ -78,7 +73,6 @@ public class DodajPcelinjakController extends Application {
 		//TODO: Procitati sve podatke, parsirati ih, ispraviti ukoliko neki nije dobar dodati, 
 		// zatim pozvati formu za radnike odredjen broj puta
 		String errorMessage = "";
-		String vlasnik; // dobiti Id nekako od ovoga
 		
 		int brojVrcalica 	= -1; // Postavljeno kao default vrijednost zbog try-catcha
 		int brojZaposlenih 	= -1;
@@ -100,19 +94,17 @@ public class DodajPcelinjakController extends Application {
 		
 		String adresa = textfieldAdresaPcelinjaka.getText();
 		
-		if (naziv == null || naziv.length() == 0) {
+		if (adresa == null || adresa.length() == 0) {
 			
 			errorMessage += "Unesite ponovo vrijednost Adresa pčelinjaka\n";
 			textfieldAdresaPcelinjaka.setStyle("-fx-border-color: red");
 			textfieldAdresaPcelinjaka.setText("");
 		}
 		else {
-
 			textfieldAdresaPcelinjaka.setStyle("");
 		}
 		
 		try {
-			
 			brojVrcalica = Integer.parseInt(textfieldBrojVrcalica.getText());
 		}catch(NumberFormatException ex) {
 			
@@ -121,6 +113,7 @@ public class DodajPcelinjakController extends Application {
 			textfieldBrojVrcalica.setText("");
 		}
 		if (brojVrcalica < 0 || textfieldBrojVrcalica.getText().length() == 0) {
+			
 			errorMessage += "Unesite ponovo vrijednost Broj Vrcalica. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
 			textfieldBrojVrcalica.setStyle("-fx-border-color: red");
 			textfieldBrojVrcalica.setText("");
@@ -130,7 +123,6 @@ public class DodajPcelinjakController extends Application {
 		}
 		
 		try {
-			
 			brojZaposlenih = Integer.parseInt(textfieldBrojZaposlenih.getText());
 		}catch(NumberFormatException ex) {
 			
@@ -139,6 +131,7 @@ public class DodajPcelinjakController extends Application {
 			textfieldBrojZaposlenih.setText("");
 		}
 		if (brojZaposlenih < 0 || textfieldBrojZaposlenih.getText().length() == 0) {
+			
 			errorMessage += "Unesite ponovo vrijednost Broj Zaposlenih. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
 			textfieldBrojZaposlenih.setStyle("-fx-border-color: red");
 			textfieldBrojZaposlenih.setText("");
@@ -148,7 +141,6 @@ public class DodajPcelinjakController extends Application {
 		}
 		
 		try {
-			
 			brojTegli = Integer.parseInt(textfieldBrojTegli.getText());
 		}catch(NumberFormatException ex) {
 			
@@ -157,6 +149,7 @@ public class DodajPcelinjakController extends Application {
 			textfieldBrojTegli.setText("");
 		}
 		if (brojTegli < 0 || textfieldBrojTegli.getText().length() == 0) {
+			
 			errorMessage += "Unesite ponovo vrijednost Broj Tegli. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
 			textfieldBrojTegli.setStyle("-fx-border-color: red");
 			textfieldBrojTegli.setText("");
@@ -166,7 +159,6 @@ public class DodajPcelinjakController extends Application {
 		}
 		
 		try {
-			
 			brojDrustava = Integer.parseInt(textfieldBrojDrustava.getText());
 		}catch(NumberFormatException ex) {
 			
@@ -175,6 +167,7 @@ public class DodajPcelinjakController extends Application {
 			textfieldBrojDrustava.setText("");
 		}
 		if (brojDrustava < 0 || textfieldBrojDrustava.getText().length() == 0) {
+			
 			errorMessage += "Unesite ponovo vrijednost Broj Društava. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
 			textfieldBrojDrustava.setStyle("-fx-border-color: red");
 			textfieldBrojDrustava.setText("");
@@ -187,47 +180,44 @@ public class DodajPcelinjakController extends Application {
 			PopUpWindow.showMessage("Greška", "Greška pri unosu parametara.", errorMessage);
 		}
 		else {
-			// TODO: skontati kako dodati IdVlasnika, vjerovatno preko konstruktora
-			new PcelinjakDao().addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
-			PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
-			callerController.initializeScene();
-			thisStage.close();
-//			int i = 0;
-//			int result;
-//			while (i < brojZaposlenih) {
-//				
-//				DodajZaposlenogController dzc = new DodajZaposlenogController();
-//				Timer timer = new Timer();
-//		        timer.schedule(new TimerTask() {
-//		        	@Override
-//		            public void run()
-//		            { 
-//		            	
-//		                Platform.runLater(() ->
-//		                {
-//		                    try {
-//		                     
-//		                        Stage stage = new Stage();
-//		                        dzc.start(stage);
-//		                        
-//		                    }
-//		                    catch (Exception ex) {
-//		                        ex.printStackTrace();
-//		                    }
-//
-//		                    
-//		                });
-//		                timer.cancel();
-//		            }
-//		        }, 0);
-//		      //result = dzc.addZaposleni(); // Ovo se pokrece na drugom tredu, ne UI tredu (nece sve blokirati)!
-//	        	if (result > 0) {
-//	        		i++;
-//	        	}
-//			}
+			
+			PcelinjakDao pd = new PcelinjakDao();
+			pd.addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
+			DodajZaposlenogController dzc = new DodajZaposlenogController(pd.getByName(naziv).getIdPcelinjaka());
+			
+			int i = dzc.addedZaposleni;
+			if (i + brojZaposlenih >=  dzc.addedZaposleni) {
+				
+				System.out.println("Usao u dodavanje!");
+				
+				Timer timer = new Timer();
+		        timer.schedule(new TimerTask() {
+		        	@Override
+		            public void run()
+		            { 
+		            	
+		                Platform.runLater(() ->
+		                {
+		                    try {
+		                     
+		                        Stage stage = new Stage();
+		                        dzc.start(stage);
+		                        
+		                    }
+		                    catch (Exception ex) {
+		                        ex.printStackTrace();
+		                    }
+
+		                    
+		                });
+		                timer.cancel();
+		            }
+		        	}, 0);
+	        	}
+		}
+		PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
+		callerController.initializeScene();
+		thisStage.close();
 		}
 		
-		
-	}
-
 }
