@@ -35,12 +35,15 @@ public class DodajZaposlenogController extends Application {
 	@FXML 
 	private Button	buttonAccept;
 	
-	@FXML
 	private Stage thisStage;
 	
 	private int idPcelinjaka;
 	
 	public static int addedZaposleni = 0; // Staticki blok koji se inicijalizuje samo jednom, provjera da li je dovoljan broj zapolenih dodat se moze odaditi provjerom ovog broja prije i poslije dodavanja.
+	
+	public DodajZaposlenogController() {
+		
+	}
 	
 	public DodajZaposlenogController(int pIdPcelinjaka) {
 		
@@ -65,7 +68,7 @@ public class DodajZaposlenogController extends Application {
             PopUpWindow.showMessage("Izlazak iz prozora", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");
             primaryStage.close();
         });
-        primaryStage.showAndWait();
+        primaryStage.show();
         thisStage = primaryStage;		
 		
 	}
@@ -103,8 +106,8 @@ public class DodajZaposlenogController extends Application {
 		if (JMBG == null || JMBG.length() != 13) {
 			
 			errorMessage += "Unesite ponovo vrijednost JBMG zaposlenog.JMBG mora sadrzavati 13 cifara.\n";
-			textfieldPrezime.setStyle("-fx-border-color: red");
-			textfieldPrezime.setText("");
+			textfieldJMBG.setStyle("-fx-border-color: red");
+			textfieldJMBG.setText("");
 		}
 		else {
 			try {
@@ -113,10 +116,10 @@ public class DodajZaposlenogController extends Application {
 			catch (NumberFormatException ex){
 				
 				errorMessage += "Unesite ponovo vrijednost JBMG zaposlenog.JMBG mora sadrzavati 13 cifara.\n";
-				textfieldPrezime.setStyle("-fx-border-color: red");
-				textfieldPrezime.setText("");
+				textfieldJMBG.setStyle("-fx-border-color: red");
+				textfieldJMBG.setText("");
 			}
-			textfieldPrezime.setStyle("");
+			textfieldJMBG.setStyle("");
 		}
 		
 		BigDecimal plata = BigDecimal.valueOf(0);
@@ -167,8 +170,9 @@ public class DodajZaposlenogController extends Application {
 			PopUpWindow.showMessage("Greška", "Greška pri unosu parametara.", errorMessage);
 		}
 		else {
-			new ZaposleniDao().addZaposleni(plata, korisnickoIme, lozinka, JMBG, korisnickoIme, prezime, idPcelinjaka);
+			//new ZaposleniDao().addZaposleni(plata, korisnickoIme, lozinka, JMBG, korisnickoIme, prezime, idPcelinjaka);
 			addedZaposleni++;
+			System.out.println(addedZaposleni);
 			thisStage.close();
 		}
 		

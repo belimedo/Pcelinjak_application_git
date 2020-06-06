@@ -182,13 +182,14 @@ public class DodajPcelinjakController extends Application {
 		else {
 			
 			PcelinjakDao pd = new PcelinjakDao();
-			pd.addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
-			DodajZaposlenogController dzc = new DodajZaposlenogController(pd.getByName(naziv).getIdPcelinjaka());
+			//pd.addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
+			//DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
 			
-			int i = dzc.addedZaposleni;
-			if (i + brojZaposlenih >=  dzc.addedZaposleni) {
-				
+			int i ;//= dzc.addedZaposleni;
+			for (i =0;i<brojZaposlenih;i++) {
+				DodajZaposlenogController dzc = new DodajZaposlenogController(4);
 				System.out.println("Usao u dodavanje!");
+				System.out.println(i);
 				
 				Timer timer = new Timer();
 		        timer.schedule(new TimerTask() {
@@ -217,9 +218,9 @@ public class DodajPcelinjakController extends Application {
 			
 		}
 		
-		PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
-		callerController.initializeScene();
-		thisStage.close();
+		//PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
+		//callerController.initializeScene();
+		//thisStage.close();
 		}
 		
 }

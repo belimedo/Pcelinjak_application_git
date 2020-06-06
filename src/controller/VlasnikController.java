@@ -221,5 +221,39 @@ public class VlasnikController extends Application {
 		
 	}
 	
+	public void testZaposleniAdd() {
+		
+		DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
+		
+		int i = dzc.addedZaposleni;
+		for (i = 0; i<3; i++) {
+			System.out.println("Usao u dodavanje!");
+			
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	        	@Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        dzc.start(stage);
+	                        
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+
+	                    
+	                });
+	                timer.cancel();
+	            }
+	        	}, 0);
+        	}
+	}
+	
 
 }
