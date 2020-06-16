@@ -219,6 +219,8 @@ public class VlasnikController extends Application {
 	@FXML
 	public void deletePcelinjak() {
 		
+		
+		
 	}
 	
 	public void testZaposleniAdd() {
