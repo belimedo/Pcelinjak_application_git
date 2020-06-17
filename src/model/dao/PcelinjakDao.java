@@ -7,6 +7,7 @@ import java.util.*;
 
 import model.dto.Drustvo;
 import model.dto.Pcelinjak;
+import model.dto.Zaposleni;
 import util.ConnectionPool;
 
 
@@ -318,12 +319,36 @@ public class PcelinjakDao {
 		/**
 		 *  Kod brisanja pcelinjaka potrebno je pobrisati: 
 		 *  1. Sva drustva i sve sanduke +
-		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda, ovo odraditi preko fk zaposleni i fk drustvo, dobiti sve pa izbrisati sve ove! 
+		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda, ovo odraditi preko fk zaposleni i fk drustvo, dobiti sve pa izbrisati sve ove! +
 		 *  3. Sve kupovine, tabele stavka_med, stavka_propolis, posjeduje_med i posjeduje_propolis
 		 */
+		DrustvoDao drustvoDao 		= new DrustvoDao();
+		ZaposleniDao zaposleniDao 	= new ZaposleniDao();
+		LijeciDao lijeciDao 		= new LijeciDao();
+		VrcaMedDao vrcaMedDao 		= new VrcaMedDao();
+		PregledaDao pregledaDao 	= new PregledaDao();
 		
-		new DrustvoDao().deleteAllDrustvaFromPcelinjak(IdPcelinjaka);
+		LinkedList<Drustvo> listDrustva = (LinkedList<Drustvo>) drustvoDao.getByPcelinjakId(IdPcelinjaka);
+		LinkedList<Zaposleni> listZaposleni = (LinkedList<Zaposleni>) zaposleniDao.getAllByPcelinjakId(IdPcelinjaka);
 		
+		for (Drustvo d : listDrustva) {
+			lijeciDao.deleteLijeciByIdDrustva(d.getIdDrustva());
+			vrcaMedDao.deleteVrcaMedByIdDrustva(d.getIdDrustva());
+			pregledaDao.deletePregledaByIdDrustva(d.getIdDrustva());
+		}
+		
+		// Mislim da je ovo sad suvisno ali hajd'...
+		for (Zaposleni z : listZaposleni) {
+			lijeciDao.deleteLijeciByIdZaposlenog(z.getIdZaposlenog());
+			vrcaMedDao.deleteVrcaMedByIdZaposlenog(z.getIdZaposlenog());
+			pregledaDao.deletePregledaByIdZaposlenog(z.getIdZaposlenog());
+		}
+		
+		drustvoDao.deleteAllDrustvaFromPcelinjak(IdPcelinjaka);
+		zaposleniDao.deleteAllZaposleniFromPcelinjak(IdPcelinjaka);
+		
+		
+		// TODO: Ovdje sada obrisati posjeduje med, posjeduje propolis, zatim stavke med, stavke propolis i onda kupovine
 		
 		return 0;
 	}
