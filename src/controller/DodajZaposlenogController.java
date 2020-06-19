@@ -3,6 +3,7 @@ package controller;
 
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.dao.ZaposleniDao;
+import model.dto.Zaposleni;
 import util.PopUpWindow;
 
 public class DodajZaposlenogController extends Application {
@@ -35,21 +37,27 @@ public class DodajZaposlenogController extends Application {
 	@FXML 
 	private Button	buttonAccept;
 	
-	private Stage thisStage;
-	
-	private int idPcelinjaka;
-	
 	public static int addedZaposleni = 0; // Staticki blok koji se inicijalizuje samo jednom, provjera da li je dovoljan broj zapolenih dodat se moze odaditi provjerom ovog broja prije i poslije dodavanja.
+	private static LinkedList<Zaposleni> zaposleniZaDodavanje = null;
+	
+	private Stage thisStage;
+	private int maxZaposlenih; // Ovaj podatak clan nam je potreban kada dodajemo nekoliko zaposlenih da znamo kada je potrebno vratiti se nazad
+	private DodajPcelinjakController pcelinjakController = null; // Kada pozivamo iz dodajPcelinjak
+	// private UpravljajZaposlenimaController zaposleniController = null; // Kada pozivamo iz upravljajZaposlenima
+	
+	
+	
+	
 	
 	public DodajZaposlenogController() {
 		
 	}
 	
-	public DodajZaposlenogController(int pIdPcelinjaka) {
+	public DodajZaposlenogController(int maxZaposlenih,DodajPcelinjakController controller) {
 		
-		this.idPcelinjaka = pIdPcelinjaka;
+		pcelinjakController	= controller;
+		this.maxZaposlenih	= maxZaposlenih;
 	}
-	
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -170,8 +178,21 @@ public class DodajZaposlenogController extends Application {
 			PopUpWindow.showMessage("Greška", "Greška pri unosu parametara.", errorMessage);
 		}
 		else {
-			//new ZaposleniDao().addZaposleni(plata, korisnickoIme, lozinka, JMBG, korisnickoIme, prezime, idPcelinjaka);
+			// Ako je ovo prvi zaposleni koji se dodaje, onda se generisati nova lista
+			if (zaposleniZaDodavanje == null) {
+				
+				zaposleniZaDodavanje = new LinkedList<Zaposleni>();
+			}
+			zaposleniZaDodavanje.add(new Zaposleni(0,korisnickoIme,lozinka,JMBG,ime,prezime,plata,0));
 			addedZaposleni++;
+			// Ispitujemo da li je broj zaposlenih dostigao zeljeni i ako je pcelinjak kontroler razlicit od null, pozovi metodu za kreiranje
+			if(addedZaposleni == maxZaposlenih && pcelinjakController != null) {
+				
+				pcelinjakController.createPcelinjak(zaposleniZaDodavanje);
+				zaposleniZaDodavanje = null;
+				pcelinjakController = null;
+			}
+				
 			System.out.println(addedZaposleni);
 			thisStage.close();
 		}

@@ -24,12 +24,25 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.dao.DrustvoDao;
 import model.dao.InformacijePcelinjakDao;
+import model.dao.KupovinaDao;
+import model.dao.LijeciDao;
 import model.dao.PcelinjakDao;
+import model.dao.PosjedujeMedDao;
+import model.dao.PosjedujePropolisDao;
+import model.dao.PregledaDao;
+import model.dao.StavkaMedDao;
+import model.dao.StavkaPropolisDao;
 import model.dao.VlasnikDao;
+import model.dao.VrcaMedDao;
+import model.dao.ZaposleniDao;
+import model.dto.Drustvo;
 import model.dto.InformacijePcelinjak;
+import model.dto.Kupovina;
 import model.dto.Pcelinjak;
 import model.dto.Vlasnik;
+import model.dto.Zaposleni;
 
 public class VlasnikController extends Application {
 	
@@ -147,6 +160,7 @@ public class VlasnikController extends Application {
 			}
 		});
 		
+		System.out.println(PcelinjakImena);
 		cbNazivPcelinjaka.setValue(PcelinjakImena.get(0));
 		labelVlasnik.setText(PcelinjakImena.get(0) + " - Vlasnik: "+ (ipd.getByPcelinjakId(pd.getByName(PcelinjakImena.get(0)).getIdPcelinjaka())).getVlasnik());
 		
@@ -219,42 +233,99 @@ public class VlasnikController extends Application {
 	@FXML
 	public void deletePcelinjak() {
 		
+		/**
+		 *  Kod brisanja pcelinjaka potrebno je pobrisati: 
+		 *  1. Sva drustva i sve sanduke +
+		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda, ovo odraditi preko fk zaposleni i fk drustvo, dobiti sve pa izbrisati sve ove! +
+		 *  3. Sve kupovine, tabele stavka_med, stavka_propolis, posjeduje_med i posjeduje_propolis
+		 */
 		
+		PcelinjakDao pd = new PcelinjakDao();
+		int IdPcelinjaka = pd.getByName(cbNazivPcelinjaka.getValue()).getIdPcelinjaka();
+
+		DrustvoDao drustvoDao 			= new DrustvoDao();
+		ZaposleniDao zaposleniDao 		= new ZaposleniDao();
+		LijeciDao lijeciDao 			= new LijeciDao();
+		VrcaMedDao vrcaMedDao 			= new VrcaMedDao();
+		PregledaDao pregledaDao 		= new PregledaDao();
+		KupovinaDao kupovinaDao			= new KupovinaDao();
+		StavkaMedDao stMedDao 			= new StavkaMedDao();
+		StavkaPropolisDao stPropolisDao	= new StavkaPropolisDao();
+		
+		LinkedList<Drustvo> listDrustva = (LinkedList<Drustvo>) drustvoDao.getByPcelinjakId(IdPcelinjaka);
+		LinkedList<Zaposleni> listZaposleni = (LinkedList<Zaposleni>) zaposleniDao.getAllByPcelinjakId(IdPcelinjaka);
+		
+		for (Drustvo d : listDrustva) {
+			lijeciDao.deleteLijeciByIdDrustva(d.getIdDrustva());
+			vrcaMedDao.deleteVrcaMedByIdDrustva(d.getIdDrustva());
+			pregledaDao.deletePregledaByIdDrustva(d.getIdDrustva());
+		}
+		
+		// Mislim da je ovo sad suvisno ali hajd'...
+		for (Zaposleni z : listZaposleni) {
+			lijeciDao.deleteLijeciByIdZaposlenog(z.getIdZaposlenog());
+			vrcaMedDao.deleteVrcaMedByIdZaposlenog(z.getIdZaposlenog());
+			pregledaDao.deletePregledaByIdZaposlenog(z.getIdZaposlenog());
+		}
+		
+		drustvoDao.deleteAllDrustvaFromPcelinjak(IdPcelinjaka);
+		zaposleniDao.deleteAllZaposleniFromPcelinjak(IdPcelinjaka);
+		
+		new PosjedujePropolisDao().deleteByIdPcelinjaka(IdPcelinjaka);
+		new PosjedujeMedDao().deleteByIdPcelinjaka(IdPcelinjaka);
+		
+		LinkedList<Kupovina> kupovine = (LinkedList<Kupovina>)kupovinaDao.getKupovinaByPcelinjakId(IdPcelinjaka);
+		
+		for (Kupovina k:kupovine) {
+			
+			stMedDao.deleteByIdKupovine(k.getIdKupovine());
+			stPropolisDao.deleteByIdKupovine(k.getIdKupovine());
+		}
+		
+		kupovinaDao.deleteByIdPcelinjaka(IdPcelinjaka);
+		
+
+		if (pd.deletePcelinjak(IdPcelinjaka) > 0)
+			System.out.println("Uspjesno!");
+		else
+			System.out.println("Neuspjesno");
+		
+		initializeScene();
 		
 	}
 	
 	public void testZaposleniAdd() {
-		
-		DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
-		
-		int i = dzc.addedZaposleni;
-		for (i = 0; i<3; i++) {
-			System.out.println("Usao u dodavanje!");
-			
-			Timer timer = new Timer();
-	        timer.schedule(new TimerTask() {
-	        	@Override
-	            public void run()
-	            { 
-	            	
-	                Platform.runLater(() ->
-	                {
-	                    try {
-	                     
-	                        Stage stage = new Stage();
-	                        dzc.start(stage);
-	                        
-	                    }
-	                    catch (Exception ex) {
-	                        ex.printStackTrace();
-	                    }
-
-	                    
-	                });
-	                timer.cancel();
-	            }
-	        	}, 0);
-        	}
+//		
+//		DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
+//		
+//		int i = dzc.addedZaposleni;
+//		for (i = 0; i<3; i++) {
+//			System.out.println("Usao u dodavanje!");
+//			
+//			Timer timer = new Timer();
+//	        timer.schedule(new TimerTask() {
+//	        	@Override
+//	            public void run()
+//	            { 
+//	            	
+//	                Platform.runLater(() ->
+//	                {
+//	                    try {
+//	                     
+//	                        Stage stage = new Stage();
+//	                        dzc.start(stage);
+//	                        
+//	                    }
+//	                    catch (Exception ex) {
+//	                        ex.printStackTrace();
+//	                    }
+//
+//	                    
+//	                });
+//	                timer.cancel();
+//	            }
+//	        	}, 0);
+//        	}
 	}
 	
 

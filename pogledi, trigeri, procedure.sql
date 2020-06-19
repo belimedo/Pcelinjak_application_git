@@ -65,7 +65,7 @@ where d.IdDruštva = new.DRUŠTVO_IdDruštva;
 $$
 DELIMITER ;
 
-drop trigger dekrementuj_sanduk;
+# drop trigger dekrementuj_sanduk;
 DELIMITER $$
 use pcelinjak_db $$
 # Triger za automatsko dekrementovanje broja društava u pčelinjaku
@@ -221,10 +221,36 @@ pp.PROPOLIS_IdPropolisa = new.PROPOLIS_IdPropolisa;
 $$
 DELIMITER ;
 
+# drop trigger brisanje_posjeduje_med;
+DELIMITER $$
+use pcelinjak_db $$
+# Triger koji umanjuje ukupnu kolicinu izvrcanog meda nakon brisanja tabele posjeduje_med
+create trigger brisanje_posjeduje_med after delete 
+on posjeduje_med
+for each row 
+update izvrcani_med as im
+set im.Količina = im.Količina - old.Količina
+where old.IZVRCANI_MED_MED_IdMeda = IdIzvrcanogMeda;
+$$
+DELMITER ;
+
+# drop trigger brisanje_posjeduje_propolis;
+DELIMITER $$
+use pcelinjak_db $$
+# Triger koji umanjuje ukupnu kolicinu propolisa nakon brisanja tabele posjeduje_propolis
+create trigger brisanje_posjeduje_propolis after delete 
+on posjeduje_propolis
+for each row 
+update propolis as p
+set p.Količina = p.Količina - old.Količina
+where old.PROPOLIS_IdPropolisa = IdPropolisa;
+$$
+DELMITER ;
+
 -- PROCEDURE --
 
-drop procedure dodaj_pcelinjak;
 DELIMITER $$
+drop procedure dodaj_pcelinjak $$
 use pcelinjak_db $$
 # Ova procedura unosi pcelinjak, specifikovani broj drustava i broj sanduka za svako drustvo
 create procedure dodaj_pcelinjak (in pNazivPcelinjaka varchar(45),in pAdresaPcelinjaka varchar(45),in pBrojDrustava int,in pBrojVrcalica int, in pBrojTegliZaAmbalazu int,in pBrojZaposlenih int,in pIdVlasnika int,

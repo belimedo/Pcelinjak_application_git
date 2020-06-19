@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,9 +16,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.dao.PcelinjakDao;
+import model.dao.ZaposleniDao;
+import model.dto.Pcelinjak;
+import model.dto.Zaposleni;
 import util.PopUpWindow;
 
 public class DodajPcelinjakController extends Application {
@@ -39,6 +45,8 @@ public class DodajPcelinjakController extends Application {
 	private ChoiceBox<String> cbVlasnik;
 	@FXML
 	private Button buttonAccept;
+	
+	private Pcelinjak createdPcelinjak = null;
 	
 	private VlasnikController callerController;
 	
@@ -181,13 +189,14 @@ public class DodajPcelinjakController extends Application {
 		}
 		else {
 			
-			PcelinjakDao pd = new PcelinjakDao();
-			//pd.addPcelinjak(naziv,adresa,brojDrustava,brojVrcalica,brojTegli,brojZaposlenih,callerController.getIdVlasnika());
-			//DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
+			// Smijestamo promjenljive koje smo procitali u staticku promjenljivu
+			createdPcelinjak = new Pcelinjak(0,naziv,adresa,brojDrustava,brojVrcalica,brojTegli,0,callerController.getIdVlasnika()); // Triger ce automatski dodati zaposlenog!!!
+			// Dobijamo broj zaposlneih koji su trenutno kreirani
+			int maxNumber = new DodajZaposlenogController().addedZaposleni + brojZaposlenih;
 			
-			int i ;//= dzc.addedZaposleni;
+			int i ;
 			for (i =0;i<brojZaposlenih;i++) {
-				DodajZaposlenogController dzc = new DodajZaposlenogController(4);
+				DodajZaposlenogController dzc = new DodajZaposlenogController(maxNumber,this);
 				System.out.println("Usao u dodavanje!");
 				System.out.println(i);
 				
@@ -215,12 +224,35 @@ public class DodajPcelinjakController extends Application {
 		            }
 		        	}, 0);
 	        	}
+			thisStage.close();
+		}
+		}
+	
+	public void createPcelinjak(LinkedList<Zaposleni> zaposleni) {
+		
+		if (createdPcelinjak != null) {
 			
+			PcelinjakDao pd	= new PcelinjakDao();
+			ZaposleniDao zd = new ZaposleniDao();
+			
+			pd.addPcelinjak(createdPcelinjak.getNazivPcelinjaka(), createdPcelinjak.getAdresaPcelinjaka(), createdPcelinjak.getBrojDrustava(),
+					createdPcelinjak.getBrojVrcalica(), createdPcelinjak.getBrojTegliZaAmbalazu(),createdPcelinjak.getBrojZaposlenih(),createdPcelinjak.getVLASNIK_IdVlasnika());
+			for (Zaposleni z : zaposleni) {
+				
+				zd.addZaposleni(z.getPlata(), z.getKorisničkoIme(), z.getLozinka(), z.getJMBG(), z.getIme(), z.getPrezime(), pd.getByName(createdPcelinjak.getNazivPcelinjaka()).getIdPcelinjaka());
+			}
+			
+			PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + createdPcelinjak.getNazivPcelinjaka());
+			callerController.initializeScene();
+			createdPcelinjak = null;
+		}
+		else {
+			
+			PopUpWindow.showMessage("Neuspješno dodavanje", "Nije dodan pčelinjak", "Niste uspješno dodali pčelinjak, popunjeni podaci nisu korektni");
+
 		}
 		
-		//PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + naziv);
-		//callerController.initializeScene();
-		//thisStage.close();
-		}
+	}
+	
 		
 }
