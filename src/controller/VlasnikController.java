@@ -128,6 +128,8 @@ public class VlasnikController extends Application {
 		List<Integer> PcelinjakId = new LinkedList<Integer>();
 		InformacijePcelinjakDao ipd = new InformacijePcelinjakDao();
 		
+		String nazivPcelinjaka = "";
+		
 		for (Pcelinjak p : PcelinjakByVlasnik) {
 			PcelinjakImena.add(p.getNazivPcelinjaka());
 			PcelinjakId.add(p.getIdPcelinjaka());
@@ -143,27 +145,40 @@ public class VlasnikController extends Application {
 		colBrojZaposlenih.setCellValueFactory(new PropertyValueFactory<>("BrojZaposlenih"));
 		
 		
-		cbNazivPcelinjaka.setItems(FXCollections.observableArrayList(PcelinjakImena));
-		
-		// Postavljamo Listener-a za promjenu vrijednosti!
+		// Postavljamo Listener-a za promjenu vrijednosti
 		cbNazivPcelinjaka.getSelectionModel().selectedItemProperty().addListener((ov, oldName, newName) -> {
 			cbNazivPcelinjaka.setValue(newName);
 			if(newName != null) {
 				
-				InformacijePcelinjak ip = ipd.getByPcelinjakId(pd.getByName(newName).getIdPcelinjaka());
-				if (!tablePcelinjak.getItems().isEmpty()) {
-					
+				InformacijePcelinjak ip = null;
+				try {
+					int IdPcelinjaka = pd.getByName(newName).getIdPcelinjaka();
+					ip = ipd.getByPcelinjakId(IdPcelinjaka);
+				} catch(NullPointerException ex) {} // Jednostavno nista se nece desiti, javice exception ali nema uticaja na kod
+				
+				if (!tablePcelinjak.getItems().isEmpty()) { // Ovim omogucavam da imam samo 1 vrstu u tabeli
+						
 					tablePcelinjak.getItems().remove(0);
 				}
-				tablePcelinjak.getItems().add(ip);
-				labelVlasnik.setText(newName + " - Vlasnik: "+ip.getVlasnik());
+				
+				if (ip != null) {
+					
+					tablePcelinjak.getItems().add(ip);
+					labelVlasnik.setText(newName + " - Vlasnik: "+ip.getVlasnik());
+				}
 			}
 		});
 		
-		System.out.println(PcelinjakImena);
-		cbNazivPcelinjaka.setValue(PcelinjakImena.get(0));
-		labelVlasnik.setText(PcelinjakImena.get(0) + " - Vlasnik: "+ (ipd.getByPcelinjakId(pd.getByName(PcelinjakImena.get(0)).getIdPcelinjaka())).getVlasnik());
 		
+		if (PcelinjakImena.size() > 0) 	{	
+			nazivPcelinjaka = PcelinjakImena.get(0);
+		}
+		cbNazivPcelinjaka.setItems(FXCollections.observableArrayList(PcelinjakImena));
+		cbNazivPcelinjaka.setValue(nazivPcelinjaka);
+		labelVlasnik.setText(nazivPcelinjaka + " - Vlasnik: "+ (new VlasnikDao().getByIdVlasnika(IdVlasnika).getPrezime() + " " + new VlasnikDao().getByIdVlasnika(IdVlasnika).getIme()));
+
+		
+				
 	}
 	
 	@FXML
@@ -233,12 +248,7 @@ public class VlasnikController extends Application {
 	@FXML
 	public void deletePcelinjak() {
 		
-		/**
-		 *  Kod brisanja pcelinjaka potrebno je pobrisati: 
-		 *  1. Sva drustva i sve sanduke +
-		 *  2. Sve zaposlene i sve tabele tipa vrca, lijeci, pregleda, ovo odraditi preko fk zaposleni i fk drustvo, dobiti sve pa izbrisati sve ove! +
-		 *  3. Sve kupovine, tabele stavka_med, stavka_propolis, posjeduje_med i posjeduje_propolis
-		 */
+		if(cbNazivPcelinjaka.getValue()!= null) {
 		
 		PcelinjakDao pd = new PcelinjakDao();
 		int IdPcelinjaka = pd.getByName(cbNazivPcelinjaka.getValue()).getIdPcelinjaka();
@@ -291,7 +301,7 @@ public class VlasnikController extends Application {
 			System.out.println("Neuspjesno");
 		
 		initializeScene();
-		
+		}
 	}
 	
 	public void testZaposleniAdd() {

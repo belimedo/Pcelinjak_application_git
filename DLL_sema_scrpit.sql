@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `pcelinjak_db`.`PČELINJAK` ;
 
 CREATE TABLE IF NOT EXISTS `pcelinjak_db`.`PČELINJAK` (
   `IdPčelinjaka` INT NOT NULL AUTO_INCREMENT,
-  `NazivPčelinjaka` VARCHAR(45) NOT NULL,
+  `NazivPčelinjaka` VARCHAR(45) NOT NULL UNIQUE,
   `AdresaPčelinjaka` VARCHAR(45) NOT NULL,
   `BrojDruštava` INT NOT NULL,
   `BrojVrcalica` INT ZEROFILL NOT NULL,

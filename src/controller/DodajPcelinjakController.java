@@ -224,6 +224,10 @@ public class DodajPcelinjakController extends Application {
 		            }
 		        	}, 0);
 	        	}
+			// Ukoliko je broj zaposlenih 0
+			if (brojZaposlenih == 0) {
+				createPcelinjak(null);
+			}
 			thisStage.close();
 		}
 		}
@@ -237,12 +241,16 @@ public class DodajPcelinjakController extends Application {
 			
 			pd.addPcelinjak(createdPcelinjak.getNazivPcelinjaka(), createdPcelinjak.getAdresaPcelinjaka(), createdPcelinjak.getBrojDrustava(),
 					createdPcelinjak.getBrojVrcalica(), createdPcelinjak.getBrojTegliZaAmbalazu(),createdPcelinjak.getBrojZaposlenih(),createdPcelinjak.getVLASNIK_IdVlasnika());
-			for (Zaposleni z : zaposleni) {
-				
-				zd.addZaposleni(z.getPlata(), z.getKorisničkoIme(), z.getLozinka(), z.getJMBG(), z.getIme(), z.getPrezime(), pd.getByName(createdPcelinjak.getNazivPcelinjaka()).getIdPcelinjaka());
+			
+			if (zaposleni != null) {
+				for (Zaposleni z : zaposleni) {
+					
+					zd.addZaposleni(z.getPlata(), z.getKorisničkoIme(), z.getLozinka(), z.getJMBG(), z.getIme(), z.getPrezime(), pd.getByName(createdPcelinjak.getNazivPcelinjaka()).getIdPcelinjaka());
+				}
 			}
 			
 			PopUpWindow.showMessage("Uspješno dodavanje", "Dodan pčelinjak", "Uspješno ste dodali novi pčelinjak " + createdPcelinjak.getNazivPcelinjaka());
+			try{wait(10);}catch(Exception ex) {}
 			callerController.initializeScene();
 			createdPcelinjak = null;
 		}
