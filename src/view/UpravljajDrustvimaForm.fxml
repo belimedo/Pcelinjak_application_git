@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="730.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label fx:id="labelVlasnik" text="Pčelinjak - Naziv - Vlasnik" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox alignment="CENTER_LEFT" prefHeight="403.0" prefWidth="707.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Informacije o društvima:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="tablePcelinjak" prefHeight="207.0" prefWidth="710.0">
+               <columns>
+                  <TableColumn fx:id="colRed" prefWidth="100.0" resizable="false" text="Red" />
+                  <TableColumn fx:id="colPozicijaURedu" prefWidth="117.0" resizable="false" text="Pozicija u redu" />
+                  <TableColumn fx:id="colBrojSanduka" prefWidth="114.0" resizable="false" text="Broj sanduka" />
+                  <TableColumn fx:id="colVelicinaLegla" prefWidth="115.0" text="Veličina legla" />
+                  <TableColumn fx:id="colKolicinaMeda" prefWidth="149.0" text="Količina meda u rezervi" />
+                  <TableColumn fx:id="colProizveloRoj" prefWidth="114.0" resizable="false" text="Proizvelo roj" />
+               </columns>
+            </TableView>
+            <VBox prefHeight="133.0" prefWidth="707.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="155.0" prefWidth="710.0" spacing="15.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="227.0" style="-fx-background-color: skyblue;">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonDodajDrustvo" mnemonicParsing="false" onAction="#addDrustvo" text="Dodaj društvo">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonUkloniDrustvo" mnemonicParsing="false" onAction="#deleteDrustvo" text="Ukloni društvo" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonPovratakNazad" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backToVlasnikForm" text="Povratak Nazad" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="245.0" style="-fx-background-color: skyblue;">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonDodajSanduk" alignment="CENTER" mnemonicParsing="false" onAction="#addSanduk" prefWidth="100.0" text="Dodaj sanduk" />
+                                    <Button fx:id="buttonUkloniSanduk" mnemonicParsing="false" onAction="#deleteSanduk" prefWidth="100.0" text="Ukloni sanduk">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonVrcanje" mnemonicParsing="false" onAction="#addVrcanje" prefWidth="100.0" text="Vrcanje" />
+                                    <Button fx:id="buttonPrikaziVrcanje" mnemonicParsing="false" onAction="#showAllVrcanja" prefWidth="100.0" text="Prikaži vrcanje" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="221.0" style="-fx-background-color: skyblue;">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonLijecenje" mnemonicParsing="false" onAction="#addLijecenje" prefWidth="70.0" text="Liječenje" />
+                                    <Button fx:id="buttonListaLijecenja" mnemonicParsing="false" onAction="#showAllLijecenja" prefWidth="110.0" text="Prikaži liječenja" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="buttonPregled" mnemonicParsing="false" onAction="#addPregled" prefWidth="70.0" text="Pregled" />
+                                    <Button fx:id="buttonListaPregledanja" mnemonicParsing="false" onAction="#showAllPregledi" prefHeight="25.0" prefWidth="110.0" text="Prikaži preglede" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
