@@ -62,7 +62,7 @@
                   <Button fx:id="buttonDetaljiOPcelinjaku" mnemonicParsing="false" onAction="#detaljiPcelinjak" text="Detalji o pčelinjaku" />
                   <Button fx:id="buttonDodajPcelinjak" mnemonicParsing="false" onAction="#addPcelinjak" text="Dodaj pčelinjak" />
                   <Button fx:id="buttonIzbrisiPcelinjak" mnemonicParsing="false" onAction="#deletePcelinjak" text="Izbriši pčelinjak" />
-                  <Button fx:id="buttonPrikaziDrustva" mnemonicParsing="false" text="Prikaži društva" />
+                  <Button fx:id="buttonPrikaziDrustva" mnemonicParsing="false" onAction="#showDrustva" text="Prikaži društva" />
                   <Button fx:id="buttonPrikaziZaposlene" mnemonicParsing="false" onAction="#testZaposleniAdd" text="Prikaži zaposlene" />
                   <Button fx:id="buttonPrikaziTransakcije" mnemonicParsing="false" text="Prikaži transakcije" />
                </children>

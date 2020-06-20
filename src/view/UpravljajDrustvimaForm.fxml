@@ -32,7 +32,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <TableView fx:id="tablePcelinjak" prefHeight="207.0" prefWidth="710.0">
+            <TableView fx:id="tableDrustvo" prefHeight="207.0" prefWidth="710.0">
                <columns>
                   <TableColumn fx:id="colRed" prefWidth="100.0" resizable="false" text="Red" />
                   <TableColumn fx:id="colPozicijaURedu" prefWidth="117.0" resizable="false" text="Pozicija u redu" />
@@ -46,7 +46,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="155.0" prefWidth="710.0" spacing="15.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="227.0" style="-fx-background-color: skyblue;">
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="227.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
                                  <children>
@@ -63,7 +63,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="buttonPovratakNazad" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backToVlasnikForm" text="Povratak Nazad" />
+                                    <Button fx:id="buttonPovratakNazad" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#backToPreviousForm" text="Povratak Nazad" />
                                  </children>
                               </HBox>
                            </children>
@@ -74,7 +74,7 @@
                               <Insets left="5.0" right="5.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="245.0" style="-fx-background-color: skyblue;">
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="245.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
                                  <children>
@@ -92,7 +92,7 @@
                               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
                                  <children>
                                     <Button fx:id="buttonVrcanje" mnemonicParsing="false" onAction="#addVrcanje" prefWidth="100.0" text="Vrcanje" />
-                                    <Button fx:id="buttonPrikaziVrcanje" mnemonicParsing="false" onAction="#showAllVrcanja" prefWidth="100.0" text="Prikaži vrcanje" />
+                                    <Button fx:id="buttonPrikaziVrcanje" mnemonicParsing="false" onAction="#showAllVrcanja" prefWidth="100.0" text="Prikaži vrcanja" />
                                  </children>
                               </HBox>
                            </children>
@@ -103,7 +103,7 @@
                               <Insets left="5.0" right="5.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="221.0" style="-fx-background-color: skyblue;">
+                        <VBox alignment="CENTER" prefHeight="128.0" prefWidth="221.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="48.0" prefWidth="192.0" spacing="20.0">
                                  <children>

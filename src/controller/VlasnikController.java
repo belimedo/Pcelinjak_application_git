@@ -304,6 +304,37 @@ public class VlasnikController extends Application {
 		}
 	}
 	
+	public void showDrustva() {
+		
+		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();
+		System.out.println(IdPcelinjaka);	
+		UpravljajDrustvimaController udc = new UpravljajDrustvimaController(IdPcelinjaka,this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        udc.start(stage);
+                        udc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+	}
+	
+	
 	public void testZaposleniAdd() {
 //		
 //		DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());

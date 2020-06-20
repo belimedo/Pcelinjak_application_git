@@ -300,9 +300,11 @@ use pcelinjak_db $$
 create procedure dodaj_drustvo (in pBrojSanduka tinyint, in pProizveloRoj tinyint, in pVeličinaLegla tinyint, in pKoličinaMedaURezervi tinyint, in pRed int, in pPozicijaURedu int, pPČELINJAK_IdPčelinjaka int,in pGodinaKupovine year, in pBoja varchar(20),in pBrojRamova tinyint)
 begin
 	declare counter tinyint;
+    declare pIdDruštva int;
     set counter = 0;
 	insert into društvo (`BrojSanduka`,`ProizveloRoj`,`VeličinaLegla`,`KoličinaMedaURezervi`,`Red`,`PozicijaURedu`,`PČELINJAK_IdPčelinjaka`)
 	values(0, pProizveloRoj, pVeličinaLegla, pKoličinaMedaURezervi, pRed, pPozicijaURedu, pPČELINJAK_IdPčelinjaka);
+    select max(`IdDruštva`) from društvo into pIdDruštva;
 	while counter < pBrojSanduka do
 		insert into sanduk (`BrojSandukaUDruštvu`,`GodinaKupovine`,`Boja`,`BrojRamova`,`DRUŠTVO_IdDruštva`)
 		values(counter+1, pGodinaKupovine,pBoja,pBrojRamova,pIdDruštva);
@@ -332,9 +334,9 @@ create procedure dodaj_sanduke (in pIdDruštva int,in pBrojSanduka tinyint, pPČ
 begin
 	declare counter tinyint;
     declare broj_sanduka tinyint;
-    set counter = 0;
+    set counter = 1;
     select BrojSanduka from društvo where IdDruštva = pIdDruštva into broj_sanduka;
-	while counter < pBrojSanduka do
+	while counter <= pBrojSanduka do
 		insert into sanduk (`BrojSandukaUDruštvu`,`GodinaKupovine`,`Boja`,`BrojRamova`,`DRUŠTVO_IdDruštva`)
 		values(broj_sanduka+counter, pGodinaKupovine,pBoja,pBrojRamova,pIdDruštva);
         set counter = counter + 1;
@@ -375,6 +377,4 @@ on m.PČELINJAK_IdPčelinjaka = p.IdPčelinjaka
 inner join posjeduje_propolis as pp
 on pp.PČELINJAK_IdPčelinjaka = p.IdPčelinjaka
 group by p.IdPčelinjaka;
-
-
 

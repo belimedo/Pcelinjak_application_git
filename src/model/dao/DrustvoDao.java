@@ -13,8 +13,10 @@ import util.ConnectionPool;
 public class DrustvoDao {
 	
 	private String getByPcelinjakIdQuery 	= "select * from društvo where PČELINJAK_IdPčelinjaka = ?";
-	private String deleteByIdQuery 	= "call izbrisi_drustvo(?)";
-	private String addDrustvoQuery 	= "call dodaj_drustvo (?,?,?,?,?,?,?,?,?,?)";
+	private String deleteByIdQuery 			= "call izbrisi_drustvo(?)";
+	private String addDrustvoQuery 			= "call dodaj_drustvo(?,?,?,?,?,?,?,?,?,?)";
+	private String getNumberOfRowsQuery		= "select max(Red) from društvo where PČELINJAK_IdPčelinjaka = ?";
+	private String getGetMaxPositionInRowQuery	= "select max(PozicijaURedu) from društvo where PČELINJAK_IdPčelinjaka = ? and Red = ?";
 	
 	public int delteById(int IdDrustva) {
 		Connection connection = null;
@@ -90,9 +92,8 @@ public class DrustvoDao {
 			ps.setInt(6, pozicijaURedu);
 			ps.setInt(7, IdPčelinjaka);
 			ps.setInt(8, godina);
-			ps.setByte(9, proizveloRoj);
-			ps.setString(10, boja);
-			ps.setByte(11, brojRamova);
+			ps.setString(9, boja);
+			ps.setByte(10, brojRamova);
 			return ps.executeUpdate();
 		}
 		catch (Exception ex) {
@@ -103,4 +104,57 @@ public class DrustvoDao {
 		}
 		return 0;
 	}
+
+	public int getNumberOfRows(int IdPcelinjaka) {
+		
+		Connection connection 	= null;
+		PreparedStatement ps 	= null;
+		ResultSet rs = null;
+		
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(getNumberOfRowsQuery);
+			ps.setInt(1, IdPcelinjaka);
+			rs= ps.executeQuery();
+			while(rs.next())
+				return rs.getInt(1);
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		
+		return -1;
+	}
+	
+	public int getLastPositionInRow(int row, int IdPcelinjaka) {
+		
+		Connection connection 	= null;
+		PreparedStatement ps 	= null;
+		ResultSet rs = null;
+		
+		int result = -1;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(getGetMaxPositionInRowQuery);
+			ps.setInt(1, IdPcelinjaka);
+			ps.setInt(2,row);
+			rs= ps.executeQuery();
+			while(rs.next())
+				result = rs.getInt(1);
+			System.out.println(result);
+			return result;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		
+		return result;
+	}
+
 }

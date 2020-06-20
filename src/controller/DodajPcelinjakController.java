@@ -42,8 +42,6 @@ public class DodajPcelinjakController extends Application {
 	@FXML
 	private TextField textfieldBrojZaposlenih;
 	@FXML
-	private ChoiceBox<String> cbVlasnik;
-	@FXML
 	private Button buttonAccept;
 	
 	private Pcelinjak createdPcelinjak = null;
@@ -230,7 +228,7 @@ public class DodajPcelinjakController extends Application {
 			}
 			thisStage.close();
 		}
-		}
+	}
 	
 	public void createPcelinjak(LinkedList<Zaposleni> zaposleni) {
 		
