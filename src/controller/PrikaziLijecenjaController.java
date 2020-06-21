@@ -37,7 +37,7 @@ public class PrikaziLijecenjaController extends Application {
 	@FXML
 	private TableColumn colZaposleni;
 	@FXML
-	private Button buttonPvratakNazad;
+	private Button buttonPovratakNazad;
 	@FXML
 	private Stage thisStage;
 	
