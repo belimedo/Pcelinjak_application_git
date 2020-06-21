@@ -389,10 +389,10 @@ inner join zaposleni as z
 on v.ZAPOSLENI_IdZaposlenog = z.IdZaposlenog
 group by v.IdVrcanja;
 
-# drop table if exists informacije_o_lijecenju;
+# drop table if exists informacije_o_liječenju;
 use pcelinjak_db;
 -- Ovaj pogled prikazuje sve informacije o kupovinama kao što su IdKupovine, naziv pčelinjaka, Vrsta meda, količina, cijena, ime i prezime kupca te njegova adresa
-create or replace view informacije_o_lijecenju as
+create or replace view informacije_o_liječenju as
 select l.IdLiječenja as IdLiječenja, l.DRUŠTVO_IdDruštva as IdDruštva, l.DatumLiječenja as DatumLiječenja, l.VrstaLijeka as VrstaLijeka,  concat(z.Prezime," ",z.Ime) as Zaposleni
 from liječi as l
 inner join zaposleni as z

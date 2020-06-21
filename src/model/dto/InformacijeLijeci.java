@@ -7,7 +7,7 @@ public class InformacijeLijeci {
 	private int IdLijecenja;
 	private int IdDrustva;
 	private Date datumLijecenja;
-	private byte vrstaLijeka;
+	private String vrstaLijeka;
 	private String zaposleni;
 	
 	public int getIdLijecenja() {
@@ -28,10 +28,10 @@ public class InformacijeLijeci {
 	public void setDatumLijecenja(Date datumLijecenja) {
 		this.datumLijecenja = datumLijecenja;
 	}
-	public byte getVrstaLijeka() {
+	public String getVrstaLijeka() {
 		return vrstaLijeka;
 	}
-	public void setVrstaLijeka(byte vrstaLijeka) {
+	public void setVrstaLijeka(String vrstaLijeka) {
 		this.vrstaLijeka = vrstaLijeka;
 	}
 	public String getZaposleni() {
@@ -41,7 +41,7 @@ public class InformacijeLijeci {
 		this.zaposleni = zaposleni;
 	}
 	
-	public InformacijeLijeci(int idLijecenja, int idDrustva, Date datumLijecenja, byte vrstaLijeka, String zaposleni) {
+	public InformacijeLijeci(int idLijecenja, int idDrustva, Date datumLijecenja, String vrstaLijeka, String zaposleni) {
 		
 		IdLijecenja = idLijecenja;
 		IdDrustva = idDrustva;

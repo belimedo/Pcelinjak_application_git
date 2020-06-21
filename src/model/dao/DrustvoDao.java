@@ -17,6 +17,7 @@ public class DrustvoDao {
 	private String addDrustvoQuery 			= "call dodaj_drustvo(?,?,?,?,?,?,?,?,?,?)";
 	private String getNumberOfRowsQuery		= "select max(Red) from društvo where PČELINJAK_IdPčelinjaka = ?";
 	private String getGetMaxPositionInRowQuery	= "select max(PozicijaURedu) from društvo where PČELINJAK_IdPčelinjaka = ? and Red = ?";
+	private String getByIdDrustvaQuery		= "select * from društvo where IdDruštva = ?";
 	
 	public int delteById(int IdDrustva) {
 		Connection connection = null;
@@ -63,6 +64,32 @@ public class DrustvoDao {
 						result.getInt("Red"), result.getInt("PozicijaURedu"),result.getInt("PČELINJAK_IdPčelinjaka")));
 			}
 			return listDrustvo;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		return null;
+	}
+
+	public Drustvo getByIdDrustva(int IdDrustva) {
+		
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(getByIdDrustvaQuery);
+			ps.setInt(1, IdDrustva);
+			result = ps.executeQuery();
+			if(result.next()) {
+				
+				return new Drustvo(result.getInt("IdDruštva"), result.getByte("BrojSanduka"), result.getByte("ProizveloRoj"), result.getByte("VeličinaLegla"),result.getInt("KoličinaMedaURezervi"),
+						result.getInt("Red"), result.getInt("PozicijaURedu"),result.getInt("PČELINJAK_IdPčelinjaka"));
+			}
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();

@@ -7,8 +7,8 @@ public class InformacijeVrca {
 	private int IdVrcanja;
 	private int IdDrustva;
 	private Date datumVrcanja;
-	private byte vrstaMeda;
-	private byte kolicinaMeda;
+	private String vrstaMeda;
+	private double kolicinaMeda;
 	private String zaposleni;
 	
 	public int getIdVrcanja() {
@@ -29,16 +29,16 @@ public class InformacijeVrca {
 	public void setDatumVrcanja(Date datumVrcanja) {
 		this.datumVrcanja = datumVrcanja;
 	}
-	public byte getVrstaMeda() {
+	public String getVrstaMeda() {
 		return vrstaMeda;
 	}
-	public void setVrstaMeda(byte vrstaMeda) {
+	public void setVrstaMeda(String vrstaMeda) {
 		this.vrstaMeda = vrstaMeda;
 	}
-	public byte getKolicinaMeda() {
+	public double getKolicinaMeda() {
 		return kolicinaMeda;
 	}
-	public void setKolicinaMeda(byte kolicinaMeda) {
+	public void setKolicinaMeda(double kolicinaMeda) {
 		this.kolicinaMeda = kolicinaMeda;
 	}
 	public String getZaposleni() {
@@ -48,7 +48,7 @@ public class InformacijeVrca {
 		this.zaposleni = zaposleni;
 	}
 	
-	public InformacijeVrca(int idVrcanja, int idDrustva, Date datumVrcanja, byte vrstaMeda, byte kolicinaMeda,
+	public InformacijeVrca(int idVrcanja, int idDrustva, Date datumVrcanja, String vrstaMeda, double kolicinaMeda,
 			String zaposleni) {
 		
 		IdVrcanja = idVrcanja;

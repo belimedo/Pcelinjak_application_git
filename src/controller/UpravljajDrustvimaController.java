@@ -202,6 +202,32 @@ public class UpravljajDrustvimaController extends Application {
 	
 	public void showAllVrcanja() {
 		
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		PrikaziVrcanjaController pvc = new PrikaziVrcanjaController(dr.getIdDrustva());
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        pvc.start(stage);
+                        pvc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+		
 	}
 	
 	public void addLijecenje() {
@@ -209,6 +235,32 @@ public class UpravljajDrustvimaController extends Application {
 	}
 	
 	public void showAllLijecenja() {
+		// TODO: ovdje odraditi if provjeru da li je markirano drustvo da nemam Exception! 
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		PrikaziLijecenjaController plc = new PrikaziLijecenjaController(dr.getIdDrustva());
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        plc.start(stage);
+                        plc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
 		
 	}
 	
@@ -218,6 +270,31 @@ public class UpravljajDrustvimaController extends Application {
 	
 	public void showAllPregledi() {
 		
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		PrikaziPregledeController ppc = new PrikaziPregledeController(dr.getIdDrustva());
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        ppc.start(stage);
+                        ppc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
 	}
 	
 	public void backToPreviousForm() {
