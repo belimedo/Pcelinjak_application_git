@@ -42,12 +42,9 @@ public class DodajZaposlenogController extends Application {
 	
 	private Stage thisStage;
 	private int maxZaposlenih; // Ovaj podatak clan nam je potreban kada dodajemo nekoliko zaposlenih da znamo kada je potrebno vratiti se nazad
+	private int IdPcelinjaka;
 	private DodajPcelinjakController pcelinjakController = null; // Kada pozivamo iz dodajPcelinjak
-	// private UpravljajZaposlenimaController zaposleniController = null; // Kada pozivamo iz upravljajZaposlenima
-	
-	
-	
-	
+	private UpravljajZaposlenimaController zaposleniController = null; // Kada pozivamo iz upravljajZaposlenima
 	
 	public DodajZaposlenogController() {
 		
@@ -57,6 +54,13 @@ public class DodajZaposlenogController extends Application {
 		
 		pcelinjakController	= controller;
 		this.maxZaposlenih	= maxZaposlenih;
+	}
+	
+	public DodajZaposlenogController(int maxZaposlenih,UpravljajZaposlenimaController controller,int idPcelinjaka) {
+		
+		zaposleniController	= controller;
+		this.maxZaposlenih	= maxZaposlenih;
+		IdPcelinjaka = idPcelinjaka;
 	}
 	
 	@Override
@@ -71,6 +75,7 @@ public class DodajZaposlenogController extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+        primaryStage.toFront();
         primaryStage.setOnCloseRequest(e->{
             e.consume();    
             PopUpWindow.showMessage("Izlazak iz prozora", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");
@@ -133,7 +138,7 @@ public class DodajZaposlenogController extends Application {
 		BigDecimal plata = BigDecimal.valueOf(0);
 		
 		try {
-			BigDecimal.valueOf(Double.parseDouble(textfieldPlata.getText())); // Parsiramo tekst u double pa zatim u BigDecimal	
+			plata = BigDecimal.valueOf(Double.parseDouble(textfieldPlata.getText())); // Parsiramo tekst u double pa zatim u BigDecimal	
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Plata zaposlneog. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
@@ -191,6 +196,14 @@ public class DodajZaposlenogController extends Application {
 				pcelinjakController.createPcelinjak(zaposleniZaDodavanje);
 				zaposleniZaDodavanje = null;
 				pcelinjakController = null;
+			}
+			if(addedZaposleni == maxZaposlenih && zaposleniController != null) {
+				
+				Zaposleni z = zaposleniZaDodavanje.get(0);
+				new ZaposleniDao().addZaposleni(z.getPlata(), z.getKorisničkoIme(), z.getLozinka(), z.getJMBG(), z.getIme(), z.getPrezime(), IdPcelinjaka);
+				zaposleniController.initializeScene();
+				zaposleniZaDodavanje = null;
+				zaposleniController = null;
 			}
 				
 			System.out.println(addedZaposleni);

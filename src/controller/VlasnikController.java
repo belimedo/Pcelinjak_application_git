@@ -307,7 +307,7 @@ public class VlasnikController extends Application {
 	public void showDrustva() {
 		
 		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();
-		System.out.println(IdPcelinjaka);	
+		
 		UpravljajDrustvimaController udc = new UpravljajDrustvimaController(IdPcelinjaka,this);
 		Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -335,38 +335,34 @@ public class VlasnikController extends Application {
 	}
 	
 	
-	public void testZaposleniAdd() {
-//		
-//		DodajZaposlenogController dzc = new DodajZaposlenogController(4);//pd.getByName(naziv).getIdPcelinjaka());
-//		
-//		int i = dzc.addedZaposleni;
-//		for (i = 0; i<3; i++) {
-//			System.out.println("Usao u dodavanje!");
-//			
-//			Timer timer = new Timer();
-//	        timer.schedule(new TimerTask() {
-//	        	@Override
-//	            public void run()
-//	            { 
-//	            	
-//	                Platform.runLater(() ->
-//	                {
-//	                    try {
-//	                     
-//	                        Stage stage = new Stage();
-//	                        dzc.start(stage);
-//	                        
-//	                    }
-//	                    catch (Exception ex) {
-//	                        ex.printStackTrace();
-//	                    }
-//
-//	                    
-//	                });
-//	                timer.cancel();
-//	            }
-//	        	}, 0);
-//        	}
+	public void showZaposlene() {
+		
+		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();
+		
+		UpravljajZaposlenimaController uzc = new UpravljajZaposlenimaController(IdPcelinjaka,this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        uzc.start(stage);
+                        uzc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
 	}
 	
 

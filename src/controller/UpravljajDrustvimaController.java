@@ -140,6 +140,17 @@ public class UpravljajDrustvimaController extends Application {
 			tableDrustvo.getItems().add(d);
 		}
 		
+		if (vlasnikController != null) {
+			buttonVrcanje.setVisible(false);
+			buttonLijecenje.setVisible(false);
+			buttonPregled.setVisible(false);
+		}else if (zaposleniController != null) {
+
+			buttonVrcanje.setVisible(true);
+			buttonLijecenje.setVisible(true);
+			buttonPregled.setVisible(true);
+		}
+		
 		labelVlasnik.setText(new PcelinjakDao().getById(IdPcelinjaka).getNazivPcelinjaka() + " - Vlasnik: "+ new InformacijePcelinjakDao().getByPcelinjakId(IdPcelinjaka).getVlasnik());
 		
 	}
@@ -174,9 +185,11 @@ public class UpravljajDrustvimaController extends Application {
 	public void deleteDrustvo() {
 		
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
-		new DrustvoDao().delteById(dr.getIdDrustva());
-		initializeScene();
-
+		if(dr != null) {
+			new DrustvoDao().delteById(dr.getIdDrustva());
+			initializeScene();
+		}
+		
 	}
 	
 	public void addSanduk() {
@@ -191,8 +204,10 @@ public class UpravljajDrustvimaController extends Application {
 	public void deleteSanduk() {
 		
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
-		new SandukDao().deleteSanduk(dr.getIdDrustva());
-		initializeScene();
+		if(dr != null) {
+			new SandukDao().deleteSanduk(dr.getIdDrustva());
+			initializeScene();
+		}
 	}
 	
 	public void addVrcanje() {
@@ -203,31 +218,32 @@ public class UpravljajDrustvimaController extends Application {
 	public void showAllVrcanja() {
 		
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
-		PrikaziVrcanjaController pvc = new PrikaziVrcanjaController(dr.getIdDrustva());
-		Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run()
-            { 
-            	
-                Platform.runLater(() ->
-                {
-                    try {
-                     
-                        Stage stage = new Stage();
-                        pvc.start(stage);
-                        pvc.initializeScene();
-                    }
-                    catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    
-                });
-                timer.cancel();
-            }
-        }, 0);
-		
+		if(dr != null) {
+			PrikaziVrcanjaController pvc = new PrikaziVrcanjaController(dr.getIdDrustva());
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        pvc.start(stage);
+	                        pvc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	
+	                    
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
 	}
 	
 	public void addLijecenje() {
@@ -237,31 +253,32 @@ public class UpravljajDrustvimaController extends Application {
 	public void showAllLijecenja() {
 		// TODO: ovdje odraditi if provjeru da li je markirano drustvo da nemam Exception! 
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
-		PrikaziLijecenjaController plc = new PrikaziLijecenjaController(dr.getIdDrustva());
-		Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run()
-            { 
-            	
-                Platform.runLater(() ->
-                {
-                    try {
-                     
-                        Stage stage = new Stage();
-                        plc.start(stage);
-                        plc.initializeScene();
-                    }
-                    catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    
-                });
-                timer.cancel();
-            }
-        }, 0);
-		
+		if(dr != null) {
+			PrikaziLijecenjaController plc = new PrikaziLijecenjaController(dr.getIdDrustva());
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        plc.start(stage);
+	                        plc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	
+	                    
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
 	}
 	
 	public void addPregled() {
@@ -271,30 +288,32 @@ public class UpravljajDrustvimaController extends Application {
 	public void showAllPregledi() {
 		
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
-		PrikaziPregledeController ppc = new PrikaziPregledeController(dr.getIdDrustva());
-		Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run()
-            { 
-            	
-                Platform.runLater(() ->
-                {
-                    try {
-                     
-                        Stage stage = new Stage();
-                        ppc.start(stage);
-                        ppc.initializeScene();
-                    }
-                    catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    
-                });
-                timer.cancel();
-            }
-        }, 0);
+		if(dr != null) {
+			PrikaziPregledeController ppc = new PrikaziPregledeController(dr.getIdDrustva());
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        ppc.start(stage);
+	                        ppc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	
+	                    
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
 	}
 	
 	public void backToPreviousForm() {
