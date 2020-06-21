@@ -378,3 +378,33 @@ inner join posjeduje_propolis as pp
 on pp.PČELINJAK_IdPčelinjaka = p.IdPčelinjaka
 group by p.IdPčelinjaka;
 
+
+# drop table if exists informacije_o_vrcanju;
+use pcelinjak_db;
+-- Ovaj pogled prikazuje sve informacije o kupovinama kao što su IdKupovine, naziv pčelinjaka, Vrsta meda, količina, cijena, ime i prezime kupca te njegova adresa
+create or replace view informacije_o_vrcanju as
+select v.IdVrcanja as IdVrcanja, v.DRUŠTVO_IdDruštva as IdDruštva, v.DatumVrcanja as DatumVrcanja, v.VrstaMeda as VrstaMeda, v.KoličinaMeda as KoličinaMeda, concat(z.Prezime," ",z.Ime) as Zaposleni
+from vrca_med as v
+inner join zaposleni as z
+on v.ZAPOSLENI_IdZaposlenog = z.IdZaposlenog
+group by v.IdVrcanja;
+
+# drop table if exists informacije_o_lijecenju;
+use pcelinjak_db;
+-- Ovaj pogled prikazuje sve informacije o kupovinama kao što su IdKupovine, naziv pčelinjaka, Vrsta meda, količina, cijena, ime i prezime kupca te njegova adresa
+create or replace view informacije_o_lijecenju as
+select l.IdLiječenja as IdLiječenja, l.DRUŠTVO_IdDruštva as IdDruštva, l.DatumLiječenja as DatumLiječenja, l.VrstaLijeka as VrstaLijeka,  concat(z.Prezime," ",z.Ime) as Zaposleni
+from liječi as l
+inner join zaposleni as z
+on l.ZAPOSLENI_IdZaposlenog = z.IdZaposlenog
+group by l.IdLiječenja;
+
+# drop table if exists informacije_o_pregledanju;
+use pcelinjak_db;
+-- Ovaj pogled prikazuje sve informacije o kupovinama kao što su IdKupovine, naziv pčelinjaka, Vrsta meda, količina, cijena, ime i prezime kupca te njegova adresa
+create or replace view informacije_o_pregledanju as
+select p.IdPregleda as IdPregleda, p.DRUŠTVO_IdDruštva as IdDruštva, p.DatumPregleda as DatumPregleda, p.VeličinaLegla as VeličinaLegla, p.KoličinaMedaURezervi as KoličinaMedaURezervi,  p.ProizveloRoj as ProizveloRoj, concat(z.Prezime," ",z.Ime) as Zaposleni
+from pregleda as p
+inner join zaposleni as z
+on p.ZAPOSLENI_IdZaposlenog = z.IdZaposlenog
+group by p.IdPregleda;
