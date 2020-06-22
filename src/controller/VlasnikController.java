@@ -63,7 +63,7 @@ public class VlasnikController extends Application {
 	@FXML
 	private Button buttonPrikaziZaposlene;
 	@FXML
-	private Button buttonPrikaziTransakcije;
+	private Button buttonPrikaziKupovine;
 	@FXML
 	private Button buttonDodajPcelinjak;
 	@FXML
@@ -186,7 +186,7 @@ public class VlasnikController extends Application {
 		
 
 		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();
-		System.out.println(IdPcelinjaka);	
+		
 		UpravljajPcelinjakomConroller upc = new UpravljajPcelinjakomConroller(IdPcelinjaka,this);
 		Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -284,7 +284,7 @@ public class VlasnikController extends Application {
 		new PosjedujePropolisDao().deleteByIdPcelinjaka(IdPcelinjaka);
 		new PosjedujeMedDao().deleteByIdPcelinjaka(IdPcelinjaka);
 		
-		LinkedList<Kupovina> kupovine = (LinkedList<Kupovina>)kupovinaDao.getKupovinaByPcelinjakId(IdPcelinjaka);
+		LinkedList<Kupovina> kupovine = (LinkedList<Kupovina>)kupovinaDao.getAllKupovinaByIdPcelinjaka(IdPcelinjaka);
 		
 		for (Kupovina k:kupovine) {
 			
@@ -365,5 +365,34 @@ public class VlasnikController extends Application {
         }, 0);
 	}
 	
+	public void showKupovine() {
+		
+		int IdPcelinjaka = (new PcelinjakDao().getByName(cbNazivPcelinjaka.getValue())).getIdPcelinjaka();
+		
+		UpravljajKupovinamaController ukc = new UpravljajKupovinamaController(IdPcelinjaka,this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        ukc.start(stage);
+                        ukc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+	}
+	
 }

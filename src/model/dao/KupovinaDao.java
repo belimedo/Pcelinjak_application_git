@@ -18,7 +18,7 @@ public class KupovinaDao {
 	private String getKupovineByIdPcelinjakaQuery 	= "select * from kupovina where `PČELINJAK_IdPčelinjaka` = ?";
 	
 	
-	public List<Kupovina> getKupovinaByPcelinjakId(int IdPcelinjaka) {
+	public List<Kupovina> getAllKupovinaByIdPcelinjaka(int IdPcelinjaka) {
 		
 		Connection connection = null;
 		PreparedStatement ps = null;

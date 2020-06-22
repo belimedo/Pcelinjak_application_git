@@ -15,7 +15,7 @@ values ('Pčelinjak Medić','Donji Jelovac bb',0,1,0,0,3);
 
 -- 
 insert into pčelinjak (NazivPčelinjaka, AdresaPčelinjaka, BrojDruštava, BrojVrcalica, BrojTegliZaAmbalažu,BrojZaposlenih,VLASNIK_IdVlasnika)
-values ('Pčelinjak Test','Donji Bakarnik bb',10,1,0,0,3);
+values ('Pčelinjak Test','Donji Bakarnik bb',0,1,0,0,3);
 
 -- Dodavanje zaposlenih
 insert into zaposleni (`Plata`,`KorisničkoIme`,`Lozinka`,`JMBG`,`Ime`,`Prezime`,`PČELINJAK_IdPčelinjaka`)

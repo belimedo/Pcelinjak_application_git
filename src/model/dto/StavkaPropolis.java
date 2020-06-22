@@ -6,7 +6,7 @@ public class StavkaPropolis {
 
 	private int PROPOLIS_IdPropolisa;
 	private int KUPOVINA_IdKupovine;
-	private double kolicina;
+	private int kolicina;
 	private java.math.BigDecimal cijena;
 	
 	public int getPROPOLIS_IdPropolisa() {
@@ -21,10 +21,10 @@ public class StavkaPropolis {
 	public void setKUPOVINA_IdKupovine(int kUPOVINA_IdKupovine) {
 		KUPOVINA_IdKupovine = kUPOVINA_IdKupovine;
 	}
-	public double getKolicina() {
+	public int getKolicina() {
 		return kolicina;
 	}
-	public void setKolicina(double kolicina) {
+	public void setKolicina(int kolicina) {
 		this.kolicina = kolicina;
 	}
 	public java.math.BigDecimal getCijena() {
@@ -33,7 +33,7 @@ public class StavkaPropolis {
 	public void setCijena(java.math.BigDecimal cijena) {
 		this.cijena = cijena;
 	}
-	public StavkaPropolis(int pROPOLIS_IdPropolisa, int kUPOVINA_IdKupovine, double kolicina, BigDecimal cijena) {
+	public StavkaPropolis(int pROPOLIS_IdPropolisa, int kUPOVINA_IdKupovine, int kolicina, BigDecimal cijena) {
 		
 		PROPOLIS_IdPropolisa = pROPOLIS_IdPropolisa;
 		KUPOVINA_IdKupovine = kUPOVINA_IdKupovine;

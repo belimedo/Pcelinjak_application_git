@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="914.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="782.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label fx:id="labelVlasnik" prefHeight="45.0" prefWidth="500.0" text="Pčelinjak - Naziv - Vlasnik" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -34,14 +34,12 @@
             <TableView fx:id="tableKupovine" maxWidth="-Infinity" prefHeight="170.0" prefWidth="884.0">
                <columns>
                   <TableColumn fx:id="colDatumKupovine" prefWidth="102.0" resizable="false" text="Datum kupovine" />
-                  <TableColumn fx:id="colVrstaMed" prefWidth="88.0" resizable="false" text="Vrsta meda" />
                   <TableColumn fx:id="colKolicinaMeda" prefWidth="94.0" resizable="false" text="Količina meda" />
                   <TableColumn fx:id="colCijenaMeda" prefWidth="78.0" text="Cijena meda" />
-                  <TableColumn fx:id="colVrstaPropolisa" prefWidth="89.0" text="Vrsta prop." />
-                  <TableColumn fx:id="colKolicinaPropolisa" prefWidth="91.0" text="Količina prop." />
-                  <TableColumn fx:id="colCijenaPropolisa" prefWidth="76.0" text="Cijena prop." />
-                  <TableColumn fx:id="colUkupnaCijena" prefWidth="101.0" text="Ukupna cijena" />
-                  <TableColumn fx:id="colKupac" prefWidth="163.0" text="Kupac" />
+                  <TableColumn fx:id="colKolicinaPropolisa" prefWidth="121.0" text="Količina propolisa" />
+                  <TableColumn fx:id="colCijenaPropolisa" prefWidth="104.0" text="Cijena propolisa" />
+                  <TableColumn fx:id="colUkupnaCijena" prefWidth="99.0" text="Ukupna cijena" />
+                  <TableColumn fx:id="colKupac" prefWidth="152.0" text="Kupac" />
                </columns>
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />

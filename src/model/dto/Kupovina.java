@@ -1,6 +1,6 @@
 package model.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.math.BigDecimal;
 
 public class Kupovina {
