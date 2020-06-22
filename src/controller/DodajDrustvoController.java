@@ -107,7 +107,6 @@ public class DodajDrustvoController extends Application {
 		
 		try {
 			pozicijaURedu = Integer.parseInt(textfieldPozicijaURedu.getText());
-			System.out.println("Max pozicija u redu: " + Integer.toString(red)+" je: " + Integer.toString(drustvoDao.getLastPositionInRow(red, IdPcelinjaka)));
 		}catch(NumberFormatException ex) {
 			
 			errorMessage += "Unesite ponovo vrijednost Pozicija u redu. Vrijednost mora biti pozitivan cjelobrojni broj.\n";
@@ -115,7 +114,6 @@ public class DodajDrustvoController extends Application {
 			textfieldPozicijaURedu.setText("");
 		}
 		
-		System.out.println("Test dodavanja " +drustvoDao.getLastPositionInRow(red, IdPcelinjaka) + " " +  drustvoDao.getNumberOfRows(IdPcelinjaka));
 		if ( pozicijaURedu < drustvoDao.getLastPositionInRow(red, IdPcelinjaka) || textfieldPozicijaURedu.getText().length() == 0) {
 			
 			errorMessage += "Unesite ponovo vrijednost Pozicija u redu. Vrijednost mora biti pozitivan cjelobrojni broj.\n";

@@ -24,7 +24,7 @@
                   <TextField fx:id="textfieldAdresa" />
                </children>
             </HBox>
-            <Button fx:id="buttonContinue" mnemonicParsing="false" onAction="#continueToKupovina" text="Nastavi ka kupovini" />
+            <Button fx:id="buttonContinue" mnemonicParsing="false" onAction="#addTrgovina" text="Dodaj trgovinu" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

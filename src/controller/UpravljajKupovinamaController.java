@@ -134,6 +134,30 @@ public class UpravljajKupovinamaController extends Application {
 	
 	public void newPurchase() {
 		
+		DodajKupovinuController dkc = new DodajKupovinuController(IdPcelinjaka,this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        dkc.start(stage);
+                        dkc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+		
 	}
 	
 	public void backToPreviousForm() {

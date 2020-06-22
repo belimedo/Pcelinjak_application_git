@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,29 @@ public class StavkaMedDao {
 	
 	private String deleteByIdKupovineQuery = "delete from stavka_med where `KUPOVINA_IdKupovine` = ?";
 	private String getByIdKupovineQuery	= "select * from stavka_med where `KUPOVINA_IdKupovine` = ?";
+	private String addStavkaMedQuery 	= "insert into stavka_med (`KUPOVINA_IdKupovine`,`IZVRCANI_MED_MED_IdMeda`,`Količina`,`Cijena`) values (?,?,?,?);";
 	
+	public int addStavkaMed(int IdKupovine,int IdMeda,double kolicina,BigDecimal cijena) {
+		
+		Connection connection = null;
+		PreparedStatement ps = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(addStavkaMedQuery);
+			ps.setInt(1, IdKupovine);
+			ps.setInt(2, IdMeda);
+			ps.setDouble(3, kolicina);
+			ps.setBigDecimal(4, cijena);
+			return ps.executeUpdate();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		return 0;
+	}
 	
 	public List<StavkaMed> getAllByIdKupovine(int IdKupovine) {
 		
