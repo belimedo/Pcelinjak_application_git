@@ -14,6 +14,28 @@ public class PosjedujeMedDao {
 	
 private String deleteByIdPcelijakaQuery = "delete from posjeduje_med where `PČELINJAK_IdPčelinjaka` = ?";
 private String getByIdPcelijakaQuery 	= "select * from posjeduje_med where `PČELINJAK_IdPčelinjaka` = ?";
+private String addNewPosjedujeMedQuery 	= "insert into posjeduje_med (`PČELINJAK_IdPčelinjaka`,`IZVRCANI_MED_MED_IdMeda`,`Količina`) values (?,?,?);";
+
+	public int addPosjedujeMed(int IdPcelinjaka,int IdMeda,int kolicina) {
+		
+		Connection connection = null;
+		PreparedStatement ps = null;
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(addNewPosjedujeMedQuery);
+			ps.setInt(1, IdPcelinjaka);
+			ps.setInt(2, IdMeda);
+			ps.setDouble(3, kolicina);
+			return ps.executeUpdate();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		return 0;
+	}
 	
 	public List<PosjedujeMed> getByIdPcelinjaka(int IdPcelinjaka) {
 		

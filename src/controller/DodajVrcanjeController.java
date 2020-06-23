@@ -15,8 +15,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.dao.DrustvoDao;
 import model.dao.IzvrcaniMedDao;
 import model.dao.LijeciDao;
+import model.dao.PosjedujeMedDao;
 import model.dao.VrcaMedDao;
 import model.dto.IzvrcaniMed;
 import model.dto.Lijeci;
@@ -78,6 +80,7 @@ public class DodajVrcanjeController extends Application {
 		for(IzvrcaniMed im : izvrcaniMed) {
 			vrsteMeda.put(im.getVrsta(),im);
 		}
+		
 		if(vrsteMeda.size() > 0)
 			cbVrstaMeda.setValue(vrsteMeda.keySet().toArray(new String[0])[0]);
 		cbVrstaMeda.setItems(FXCollections.observableArrayList(vrsteMeda.keySet()));
@@ -145,8 +148,10 @@ public class DodajVrcanjeController extends Application {
 				PopUpWindow.showMessage("Greška", "Greška pri unosu parametara.", errorMessage);
 			}
 			else {
-				// Dodati novu vrstu izvrcanog meda, zatim dodati tabelu vrca_med
+				// Dodati novu vrstu izvrcanog meda, zatim dodati tabelu vrca_med i posjeduje med update-ovati
+				
 				new IzvrcaniMedDao().addNewIzvrcaniMed(vrstaMeda, kolicinaMeda, BigDecimal.valueOf(cijenaMeda));
+				new PosjedujeMedDao().addPosjedujeMed(new DrustvoDao().getByIdDrustva(IdDrustva).getPCELINJAKIdPcelinjaka(),new IzvrcaniMedDao().getMaxIdIzvrcanogMeda(),0);
 				new VrcaMedDao().addNewVrcaMed(vrstaMeda, kolicinaMeda, IdDrustva, IdZaposlenog);
 				backToPreviousForm();
 			}

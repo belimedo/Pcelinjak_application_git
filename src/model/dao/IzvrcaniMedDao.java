@@ -45,7 +45,7 @@ public class IzvrcaniMedDao {
 		
 		try {
 			connection = ConnectionPool.getInstance().checkOut();
-			ps=connection.prepareStatement(getByIdMedaQuery);
+			ps=connection.prepareStatement(addNewMedQuery);
 			ps.setString(1, vrsta);
 			ps.setDouble(2, kolicina);
 			ps.setBigDecimal(3, cijena);
