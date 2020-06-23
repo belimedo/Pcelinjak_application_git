@@ -58,7 +58,7 @@ private DodajKupovinuController callerController = null;
         thisStage.close();
 	}
 	
-	public void addFizickoLice() {
+	public void addTrgovina() {
 		
 		String errorMessage = "";
 		

@@ -212,6 +212,32 @@ public class UpravljajDrustvimaController extends Application {
 	
 	public void addVrcanje() {
 		
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		if(dr != null) {
+			
+			DodajVrcanjeController dvc = new DodajVrcanjeController(dr.getIdDrustva(),zaposleniController.getIdZaposlenog(),this);
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        dvc.start(stage);
+	                        dvc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
 		
 	}
 	
@@ -248,10 +274,37 @@ public class UpravljajDrustvimaController extends Application {
 	
 	public void addLijecenje() {
 		
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		if(dr != null) {
+			
+			DodajLijecenjeController dlc = new DodajLijecenjeController(dr.getIdDrustva(),zaposleniController.getIdZaposlenog(),this);
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        dlc.start(stage);
+	                        dlc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
+		
 	}
 	
 	public void showAllLijecenja() {
-		// TODO: ovdje odraditi if provjeru da li je markirano drustvo da nemam Exception! 
+		
 		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
 		if(dr != null) {
 			PrikaziLijecenjaController plc = new PrikaziLijecenjaController(dr.getIdDrustva());
@@ -272,8 +325,6 @@ public class UpravljajDrustvimaController extends Application {
 	                    catch (Exception ex) {
 	                        ex.printStackTrace();
 	                    }
-	
-	                    
 	                });
 	                timer.cancel();
 	            }

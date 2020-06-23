@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="730.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="730.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Label fx:id="labelVlasnik" text="Pčelinjak - Naziv - Vlasnik" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -25,23 +25,6 @@
    <center>
       <VBox alignment="CENTER_LEFT" prefHeight="403.0" prefWidth="707.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="780.0" spacing="10.0">
-               <children>
-                  <Label text="Vlasnik">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="labelVlasnikName">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
             <Label text="Informacije o pčelinjacima:">
                <font>
                   <Font size="24.0" />

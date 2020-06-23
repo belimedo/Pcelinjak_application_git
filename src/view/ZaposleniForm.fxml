@@ -54,7 +54,11 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="64.0" prefWidth="770.0" spacing="30.0">
                <children>
-                  <Button fx:id="buttonDetaljiOPcelinjaku" mnemonicParsing="false" onAction="#detaljiPcelinjak" text="Detalji o pčelinjaku" />
+                  <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#logout" text="Odjavi se" />
+                  <Button fx:id="buttonDetaljiOPcelinjaku" mnemonicParsing="false" onAction="#detaljiPcelinjak" text="Detalji o pčelinjaku">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
                   <Button fx:id="buttonPrikaziDrustva" mnemonicParsing="false" onAction="#showDrustva" text="Prikaži društva" />
                   <Button fx:id="buttonPrikaziKupovine" mnemonicParsing="false" onAction="#showKupovine" text="Prikaži kupovine" />
                </children>

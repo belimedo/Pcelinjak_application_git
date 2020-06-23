@@ -40,6 +40,8 @@ public class ZaposleniController extends Application {
 	@FXML
 	private Button buttonPrikaziKupovine;
 	@FXML
+	private Button buttonLogout;
+	@FXML
 	private TableView tablePcelinjak;
 	@FXML
 	private TableColumn colNaziv;
@@ -206,6 +208,34 @@ public class ZaposleniController extends Application {
                         Stage stage = new Stage();
                         ukc.start(stage);
                         ukc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+	}
+	
+	public void logout() {
+		
+		LoginController login = new LoginController();
+		Timer timer = new Timer();
+		thisStage.close();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        login.start(stage);
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();

@@ -76,6 +76,7 @@ public class DodajZaposlenogController extends Application {
         primaryStage.setResizable(false);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.toFront();
+        primaryStage.setAlwaysOnTop(true);
         primaryStage.setOnCloseRequest(e->{
             e.consume();    
             PopUpWindow.showMessage("Izlazak iz prozora", "Napustate unos", "Izlaskom iz ovog prozora bez potvrdjivanja podataka\n dodavanje pčelinjaka neće biti završeno.");

@@ -69,6 +69,8 @@ public class VlasnikController extends Application {
 	@FXML
 	private Button buttonIzbrisiPcelinjak;
 	@FXML
+	private Button buttonLogout;
+	@FXML
 	private Label labelVlasnik;
 	
 	@FXML
@@ -231,7 +233,6 @@ public class VlasnikController extends Application {
                      
                         Stage stage = new Stage();
                         dpc.start(stage);
-                        //upc.initializeScene();
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();
@@ -293,13 +294,6 @@ public class VlasnikController extends Application {
 		}
 		
 		kupovinaDao.deleteByIdPcelinjaka(IdPcelinjaka);
-		
-
-		if (pd.deletePcelinjak(IdPcelinjaka) > 0)
-			System.out.println("Uspjesno!");
-		else
-			System.out.println("Neuspjesno");
-		
 		initializeScene();
 		}
 	}
@@ -383,6 +377,34 @@ public class VlasnikController extends Application {
                         Stage stage = new Stage();
                         ukc.start(stage);
                         ukc.initializeScene();
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+	}
+	
+	public void logout() {
+		
+		LoginController login = new LoginController();
+		Timer timer = new Timer();
+		thisStage.close();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        login.start(stage);
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();

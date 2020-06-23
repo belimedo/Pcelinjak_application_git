@@ -25,17 +25,6 @@ public class PcelinjakDao {
 	private String addPcelinjakQuery	= "call dodaj_pcelinjak(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private String deletePcelinjakByIdQuery		= "delete from Pčelinjak where IdPčelinjaka = ?";
 	
-	
-	
-	/**
-	 * 
-	 */
-	public List<Pcelinjak> getAll() {
-		// TODO ovdje vracam listu 'chelinjaka
-		return null;
-	}
-	
-	
 	public List<Pcelinjak> getByOwner(int IdVlasnika) {
 		
 		Connection connection = null;
@@ -49,10 +38,9 @@ public class PcelinjakDao {
 			result = ps.executeQuery();
 			List<Pcelinjak> listPcelinjak = new LinkedList<Pcelinjak>();
 			while (result.next()) {
-				String naziv = result.getString("NazivPčelinjaka");
+				
 				listPcelinjak.add(new Pcelinjak(result.getInt("IdPčelinjaka"),result.getString("NazivPčelinjaka"),result.getString("AdresaPčelinjaka"),result.getInt("BrojDruštava"),
 						result.getInt("BrojVrcalica"),result.getInt("BrojTegliZaAmbalažu"),result.getInt("BrojZaposlenih"),result.getInt("VLASNIK_IdVlasnika")));
-				System.out.println(naziv);
 			}
 			return listPcelinjak;
 		}

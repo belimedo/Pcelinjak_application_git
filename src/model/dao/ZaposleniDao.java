@@ -44,6 +44,7 @@ public class ZaposleniDao {
 	}
 	
 	public Zaposleni getByUsername(String username, String pass) {
+		
 		Connection connection = null;
 		PreparedStatement ps = null;
 		ResultSet result = null;

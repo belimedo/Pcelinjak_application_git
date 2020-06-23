@@ -239,8 +239,6 @@ public class LoginController extends Application {
 			loader.setController(this);
 			Parent root = loader.load();
 	        Scene scene = new Scene(root);
-            //Parent root = FXMLLoader.load(getClass().getResource("/view/Login_form.fxml"));
-            //Scene scene = new Scene(root);
             primaryStage.setTitle("Login form");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);

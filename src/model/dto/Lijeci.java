@@ -4,16 +4,16 @@ import java.sql.Date;
 
 public class Lijeci {
 	
-	private int IdVrcanja;
+	private int IdLijecenja;
 	private Date DatumLijecenja;
 	private String VrstaLijeka;
 	private int DRUSTVO_IdDrustva;
 	private int ZAPOSLENI_IdZaposlenog;
-	public int getIdVrcanja() {
-		return IdVrcanja;
+	public int getIdLijecenja() {
+		return IdLijecenja;
 	}
-	public void setIdVrcanja(int idVrcanja) {
-		IdVrcanja = idVrcanja;
+	public void setIdLijecenja(int idLijecenja) {
+		IdLijecenja = idLijecenja;
 	}
 	public Date getDatumLijecenja() {
 		return DatumLijecenja;
@@ -39,10 +39,10 @@ public class Lijeci {
 	public void setZAPOSLENI_IdZaposlenog(int zAPOSLENI_IdZaposlenog) {
 		ZAPOSLENI_IdZaposlenog = zAPOSLENI_IdZaposlenog;
 	}
-	public Lijeci(int idVrcanja, Date datumLijecenja, String vrstaLijeka, int dRUSTVO_IdDrustva,
+	public Lijeci(int idLijecenja, Date datumLijecenja, String vrstaLijeka, int dRUSTVO_IdDrustva,
 			int zAPOSLENI_IdZaposlenog) {
 	
-		IdVrcanja = idVrcanja;
+		IdLijecenja = idLijecenja;
 		DatumLijecenja = datumLijecenja;
 		VrstaLijeka = vrstaLijeka;
 		DRUSTVO_IdDrustva = dRUSTVO_IdDrustva;

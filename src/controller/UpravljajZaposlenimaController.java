@@ -20,8 +20,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.dao.DrustvoDao;
 import model.dao.InformacijePcelinjakDao;
+import model.dao.LijeciDao;
 import model.dao.PcelinjakDao;
+import model.dao.PregledaDao;
 import model.dao.SandukDao;
+import model.dao.VrcaMedDao;
 import model.dao.ZaposleniDao;
 import model.dto.Drustvo;
 import model.dto.Pcelinjak;
@@ -121,7 +124,6 @@ public class UpravljajZaposlenimaController extends Application {
 		DodajZaposlenogController dzc = new DodajZaposlenogController(maxNumber,this,IdPcelinjaka);
 		
 		Timer timer = new Timer();
-		thisStage.toBack();
         timer.schedule(new TimerTask() {
         	@Override
             public void run()
@@ -149,6 +151,9 @@ public class UpravljajZaposlenimaController extends Application {
 	public void deleteZaposlenog() {
 		
 		Zaposleni zaposleni = (Zaposleni) tableZaposleni.getSelectionModel().getSelectedItem();
+		new PregledaDao().deletePregledaByIdZaposlenog(zaposleni.getIdZaposlenog());
+		new LijeciDao().deleteLijeciByIdZaposlenog(zaposleni.getIdZaposlenog());
+		new VrcaMedDao().deleteVrcaMedByIdZaposlenog(zaposleni.getIdZaposlenog());
 		if(zaposleni != null) {
 			new ZaposleniDao().deleteById(zaposleni.getIdZaposlenog());
 			initializeScene();
