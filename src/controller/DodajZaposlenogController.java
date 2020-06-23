@@ -71,7 +71,7 @@ public class DodajZaposlenogController extends Application {
 		Parent root = loader.load();
         Scene scene = new Scene(root);
         
-        primaryStage.setTitle("Pcelinjak - Dodaj zaposlenog");
+        primaryStage.setTitle("Pcelinjak - Application");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.initModality(Modality.APPLICATION_MODAL);

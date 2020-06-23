@@ -22,7 +22,8 @@ import util.PopUpWindow;
 public class UpravljajPcelinjakomConroller extends Application {
 	
 	private int IdPcelinjaka;
-	private VlasnikController callerController;
+	private VlasnikController callerController = null;
+	private ZaposleniController zaposleniController = null;
 	
 	@FXML
 	private Button buttonPromijeniAdresu;
@@ -65,9 +66,14 @@ public class UpravljajPcelinjakomConroller extends Application {
 		
 	}
 	
-	public UpravljajPcelinjakomConroller(int IdPcelinjaka, Application vc) {
+	public UpravljajPcelinjakomConroller(int IdPcelinjaka, VlasnikController vc) {
 		this.IdPcelinjaka = IdPcelinjaka;
-		callerController = (VlasnikController)vc;
+		callerController =  vc;
+	}
+	
+	public UpravljajPcelinjakomConroller(int IdPcelinjaka, ZaposleniController zc) {
+		this.IdPcelinjaka = IdPcelinjaka;
+		zaposleniController =  zc;
 	}
 
 	@Override
@@ -116,9 +122,15 @@ public class UpravljajPcelinjakomConroller extends Application {
 	
 	@FXML
 	public void backToVlasnikForm() {
-		
-		callerController.initializeScene();
-		thisStage.close();
+		if(callerController != null) {
+			callerController.initializeScene();
+			callerController = null;
+			thisStage.close();
+		}else if (zaposleniController != null) {
+			zaposleniController.initializeScene();
+			zaposleniController = null;
+			thisStage.close();
+		}
 	}
 	
 	@FXML

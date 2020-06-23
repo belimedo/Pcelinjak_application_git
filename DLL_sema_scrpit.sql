@@ -106,7 +106,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pcelinjak_db`.`IZVRCANI_MED` ;
 
 CREATE TABLE IF NOT EXISTS `pcelinjak_db`.`IZVRCANI_MED` (
-  `IdIzvrcanogMeda` INT NOT NULL,
+  `IdIzvrcanogMeda` INT NOT NULL AUTO_INCREMENT,
   `Vrsta` VARCHAR(30) NOT NULL,
   `Količina` DOUBLE UNSIGNED NOT NULL,
   `Cijena` DECIMAL NOT NULL,

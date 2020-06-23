@@ -1,12 +1,16 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +22,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.dao.FizickoLiceDao;
 import model.dao.InformacijePcelinjakDao;
 import model.dao.IzvrcaniMedDao;
+import model.dao.KupacDao;
 import model.dao.KupovinaDao;
 import model.dao.KupovinaDetaljnoDao;
 import model.dao.PcelinjakDao;
@@ -28,6 +34,7 @@ import model.dao.PosjedujePropolisDao;
 import model.dao.PropolisDao;
 import model.dao.StavkaMedDao;
 import model.dao.StavkaPropolisDao;
+import model.dao.TrgovinaDao;
 import model.dto.InformacijePcelinjak;
 import model.dto.IzvrcaniMed;
 import model.dto.KupovinaDetaljno;
@@ -92,18 +99,35 @@ public class DodajKupovinuController extends Application {
 		
 		List<String> vrsteMeda = new LinkedList<String>();
 		List<String> vrstePropolisa = new LinkedList<String>();
-		List<String> kupci = new LinkedList<String>();
+		HashMap<String,Integer> kupci = new HashMap<String,Integer>();
 		
 		
 		IzvrcaniMedDao imd = new IzvrcaniMedDao();
 		PropolisDao pd = new PropolisDao();
 		PosjedujeMedDao pmd = new PosjedujeMedDao();
 		PosjedujePropolisDao ppd = new PosjedujePropolisDao();
-		KupovinaDetaljnoDao kdd = new KupovinaDetaljnoDao();
+		
+		
+		FizickoLiceDao fld = new FizickoLiceDao();
+		TrgovinaDao trd = new TrgovinaDao();
+		KupacDao kupacDao = new KupacDao();
+		
+		int maxIdKupca = kupacDao.getMaxIdKupca();
+		for (int i = 0; i <= maxIdKupca; i++) {
+			if(fld.getByIdKupca(i) != null) {
+				kupci.put(fld.getByIdKupca(i).getPezime()+" "+fld.getByIdKupca(i).getIme(),i);
+			}
+			if(trd.getByIdKupca(i) != null) {
+				kupci.put(trd.getByIdKupca(i).getNaziv(),i);
+			}
+		}
+		
+		if(kupci.size() > 0) {
+			cbKupac.setValue(kupci.keySet().toArray(new String[0])[0]);
+		}
 		
 		LinkedList<PosjedujeMed> posjedujeMed = (LinkedList<PosjedujeMed>) pmd.getByIdPcelinjaka(IdPcelinjaka);
 		LinkedList<PosjedujePropolis> posjedujePropolis = (LinkedList<PosjedujePropolis>) ppd.getByIdPcelinjaka(IdPcelinjaka);
-		LinkedList<KupovinaDetaljno> kupovine = (LinkedList<KupovinaDetaljno>) kdd.getByIdPcelinjaka(IdPcelinjaka);
 		
 		if(posjedujeMed != null) {
 			for(PosjedujeMed m : posjedujeMed) {
@@ -119,15 +143,6 @@ public class DodajKupovinuController extends Application {
 			vrstePropolisa.add("-");
 			cbVrstaPropolisa.setValue(vrstePropolisa.get(0));
 		}
-		if(kupovine != null) {
-			for(KupovinaDetaljno k : kupovine) {
-				if(!kupci.contains(k.getKupac()))
-					kupci.add(k.getKupac());
-			}
-			cbKupac.setValue(kupci.get(0));
-		}
-		
-		
 		
 		cbVrstaMeda.getSelectionModel().selectedItemProperty().addListener((ov, oldName, newName) -> {
 			cbVrstaMeda.setValue(newName); });
@@ -140,7 +155,7 @@ public class DodajKupovinuController extends Application {
 		
 		cbVrstaMeda.setItems(FXCollections.observableArrayList(vrsteMeda));
 		cbVrstaPropolisa.setItems(FXCollections.observableArrayList(vrstePropolisa));
-		cbKupac.setItems(FXCollections.observableArrayList(kupci));
+		cbKupac.setItems(FXCollections.observableArrayList(kupci.keySet()));
 	}
 	
 	public void addKupovina() {
@@ -156,27 +171,32 @@ public class DodajKupovinuController extends Application {
 		IzvrcaniMedDao imd = new IzvrcaniMedDao();
 		PosjedujePropolisDao ppd = new PosjedujePropolisDao();
 		PosjedujeMedDao pmd = new PosjedujeMedDao();
-		KupovinaDetaljnoDao kdd = new KupovinaDetaljnoDao();
 		StavkaMedDao stavkaMedDao = new StavkaMedDao();
 		StavkaPropolisDao stavkaPropDao = new StavkaPropolisDao();
 		KupovinaDao kupovinaDao = new KupovinaDao();
 		
+		FizickoLiceDao fld = new FizickoLiceDao();
+		TrgovinaDao trd = new TrgovinaDao();
+		KupacDao kupacDao = new KupacDao();
 		
-		LinkedList<KupovinaDetaljno> kupovine = (LinkedList<KupovinaDetaljno>) kdd.getByIdPcelinjaka(IdPcelinjaka);
+
+		HashMap<String,Integer> kupci = new HashMap<String,Integer>();
 		LinkedList<PosjedujeMed> posjedujeMed = (LinkedList<PosjedujeMed>) pmd.getByIdPcelinjaka(IdPcelinjaka);
 		LinkedList<PosjedujePropolis> posjedujePropolis = (LinkedList<PosjedujePropolis>) ppd.getByIdPcelinjaka(IdPcelinjaka);
 		
-		PosjedujeMed izabraniMed = null;
-		PosjedujePropolis izabraniPropolis = null;
-		int idKupca = 0;
-		
-		// Mora izabrati bar 1 kupca
-		for (KupovinaDetaljno k : kupovine) {
-			if(k.getKupac().compareTo(cbKupac.getValue()) == 0) {
-				idKupca = k.getIdKupca();
-				break;
+		int maxIdKupca = kupacDao.getMaxIdKupca();
+		for (int i = 0; i <= maxIdKupca; i++) {
+			if(fld.getByIdKupca(i) != null) {
+				kupci.put(fld.getByIdKupca(i).getPezime()+" "+fld.getByIdKupca(i).getIme(),i);
+			}
+			if(trd.getByIdKupca(i) != null) {
+				kupci.put(trd.getByIdKupca(i).getNaziv(),i);
 			}
 		}
+		
+		PosjedujeMed izabraniMed = null;
+		PosjedujePropolis izabraniPropolis = null;
+		int idKupca = kupci.get(cbKupac.getValue());
 		
 		if(cbVrstaMeda.getValue().compareTo("-") != 0) { // Ukoliko neko zeli da kupi iskljucivo propolis 
 			
@@ -269,6 +289,9 @@ public class DodajKupovinuController extends Application {
 				stavkaMedDao.addStavkaMed(idKupovine, izabraniMed.getIZVRCANI_MED_IdMeda(), kolicinaMeda, BigDecimal.valueOf(cijenaMed));
 			if(izabraniPropolis != null)
 				stavkaPropDao.addStavkaPropolis(idKupovine, izabraniPropolis.getIdPropolisa(), kolicinaProp, BigDecimal.valueOf(cijenaPropolis));
+			
+			PopUpWindow.showMessage("Uspješna akcija", "Uspješno ste izvršili kupovinu.","Kupovinu je obavio kupac " + cbKupac.getValue()+ " u iznosu od " + cijenaUkupno);
+			backToPreviousForm();
 		}else {
 			PopUpWindow.showMessage("Greška", "Neuspješno dodavanje kupovine",errorMessage);
 		}
@@ -278,10 +301,55 @@ public class DodajKupovinuController extends Application {
 	
 	public void addFizickoLice() {
 		
-		
+		DodajKupcaFizickoLiceController dkflc = new DodajKupcaFizickoLiceController(this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        dkflc.start(stage);
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
+        
 	}
 	
 	public void addTrgovina() {
+		
+		DodajKupcaTrgovinaController dktc = new DodajKupcaTrgovinaController(this);
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run()
+            { 
+            	
+                Platform.runLater(() ->
+                {
+                    try {
+                     
+                        Stage stage = new Stage();
+                        dktc.start(stage);
+                    }
+                    catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                });
+                timer.cancel();
+            }
+        }, 0);
 		
 		
 	}

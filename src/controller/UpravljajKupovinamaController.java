@@ -167,8 +167,8 @@ public class UpravljajKupovinamaController extends Application {
 			vlasnikController = null;
 			thisStage.close();
 		}else if (zaposleniController != null) {
-			//zaposleniController.initializeScene();
-			//zaposleniController = null;
+			zaposleniController.initializeScene();
+			zaposleniController = null;
 			thisStage.close();
 		}
 	}

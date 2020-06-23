@@ -18,7 +18,30 @@ public class ZaposleniDao {
 	private String deleteByIdQuery		= "delete from Zaposleni where IdZaposlenog = ?";
 	private String deleteByIdPcelinjakaQuery = "delete from Zaposleni where PČELINJAK_IdPčelinjaka = ?";
 	private String getByIdPcelinjakaQuery 	= "select * from Zaposleni where PČELINJAK_IdPčelinjaka = ? ";
+	private String getByIdZaposlenogQuery 	= "select * from Zaposleni where IdZaposlenog = ? ";
 	
+	public Zaposleni getByIdZaposlenog(int IdZaposlenog) {
+		
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		
+		try {
+			connection = ConnectionPool.getInstance().checkOut();
+			ps=connection.prepareStatement(getByIdZaposlenogQuery);
+			ps.setInt(1, IdZaposlenog);
+			result = ps.executeQuery();
+			if(result.next())
+				return new Zaposleni( result.getInt("IdZaposlenog"),result.getString("KorisničkoIme"),result.getString("Lozinka"),result.getString("JMBG"),result.getString("Ime"),result.getString("Prezime"),result.getBigDecimal("Plata"),result.getInt("PČELINJAK_IdPčelinjaka"));
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			ConnectionPool.getInstance().checkIn(connection);
+		}
+		return null;
+	}
 	
 	public Zaposleni getByUsername(String username, String pass) {
 		Connection connection = null;

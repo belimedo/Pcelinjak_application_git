@@ -120,7 +120,7 @@ public class LoginController extends Application {
 		}
 		else {
 			
-			ZaposleniController zc = new ZaposleniController();
+			ZaposleniController zc = new ZaposleniController(Id);
 			Timer timer = new Timer();
 	        timer.schedule(new TimerTask() {
 	            @Override
@@ -130,9 +130,9 @@ public class LoginController extends Application {
 	                Platform.runLater(() ->
 	                {
 	                    try {
-	                        //Parent root = FXMLLoader.load(getClass().getResource("/view/vlasnik.fxml"));
 	                        Stage stage = new Stage();
 	                        zc.start(stage);
+	                        zc.initializeScene();
 	                        
 	                    }
 	                    catch (IOException ex) {

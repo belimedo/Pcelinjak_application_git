@@ -224,4 +224,3 @@ call dodaj_pcelinjak('Procedura pcelinjak 4','Stepe Stepanovica 16',4,2,20,2,3,2
 
 
 
-

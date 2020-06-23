@@ -283,6 +283,34 @@ public class UpravljajDrustvimaController extends Application {
 	
 	public void addPregled() {
 		
+		Drustvo dr = (Drustvo) tableDrustvo.getSelectionModel().getSelectedItem();
+		if(dr != null) {
+			DodajPregledaController dpc = new DodajPregledaController(dr.getIdDrustva(),zaposleniController.getIdZaposlenog(),this);
+			Timer timer = new Timer();
+	        timer.schedule(new TimerTask() {
+	            @Override
+	            public void run()
+	            { 
+	            	
+	                Platform.runLater(() ->
+	                {
+	                    try {
+	                     
+	                        Stage stage = new Stage();
+	                        dpc.start(stage);
+	                        dpc.initializeScene();
+	                    }
+	                    catch (Exception ex) {
+	                        ex.printStackTrace();
+	                    }
+	
+	                    
+	                });
+	                timer.cancel();
+	            }
+	        }, 0);
+		}
+		
 	}
 	
 	public void showAllPregledi() {
@@ -323,8 +351,8 @@ public class UpravljajDrustvimaController extends Application {
 			vlasnikController = null;
 			thisStage.close();
 		}else if (zaposleniController != null) {
-			//zaposleniController.initializeScene();
-			//zaposleniController = null;
+			zaposleniController.initializeScene();
+			zaposleniController = null;
 			thisStage.close();
 		}
 		
