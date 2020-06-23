@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javafx.application.Application;
@@ -65,13 +66,13 @@ public class DodajLijecenjeController extends Application {
 	public void initializeScene() {
 		
 		LinkedList<Lijeci> lijecenja = (LinkedList<Lijeci>) new LijeciDao().getAllLijeci();
-		LinkedList<String> vrsteLijeka = new LinkedList<String>();
+		HashMap<String,Lijeci> vrsteLijeka = new HashMap<String,Lijeci>();
 		for(Lijeci l : lijecenja) {
-			vrsteLijeka.add(l.getVrstaLijeka());
+			vrsteLijeka.put(l.getVrstaLijeka(),l);
 		}
 		if(vrsteLijeka.size() > 0)
-			cbVrstaLijeka.setValue(vrsteLijeka.get(0));
-		cbVrstaLijeka.setItems(FXCollections.observableArrayList(vrsteLijeka));
+			cbVrstaLijeka.setValue(vrsteLijeka.keySet().toArray(new String[0])[0]);
+		cbVrstaLijeka.setItems(FXCollections.observableArrayList(vrsteLijeka.keySet()));
 		checkboxNoviLijek.setSelected(false); // Ovo mozda ne treba
 	}
 	

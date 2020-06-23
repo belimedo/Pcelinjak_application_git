@@ -1,6 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javafx.application.Application;
@@ -73,13 +74,13 @@ public class DodajVrcanjeController extends Application {
 	public void initializeScene() {
 		
 		LinkedList<IzvrcaniMed> izvrcaniMed = (LinkedList<IzvrcaniMed>) new IzvrcaniMedDao().getAllIzvracniMed();
-		LinkedList<String> vrsteMeda= new LinkedList<String>();
+		HashMap<String,IzvrcaniMed> vrsteMeda = new HashMap<String,IzvrcaniMed>();
 		for(IzvrcaniMed im : izvrcaniMed) {
-			vrsteMeda.add(im.getVrsta());
+			vrsteMeda.put(im.getVrsta(),im);
 		}
 		if(vrsteMeda.size() > 0)
-			cbVrstaMeda.setValue(vrsteMeda.get(0));
-		cbVrstaMeda.setItems(FXCollections.observableArrayList(vrsteMeda));
+			cbVrstaMeda.setValue(vrsteMeda.keySet().toArray(new String[0])[0]);
+		cbVrstaMeda.setItems(FXCollections.observableArrayList(vrsteMeda.keySet()));
 		checkboxNoviMed.setSelected(false); // Ovo mozda ne treba
 	}
 	
